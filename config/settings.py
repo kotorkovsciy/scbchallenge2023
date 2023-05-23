@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "jobportal.apps.JobportalConfig",
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,5 @@ CACHES = {
         "LOCATION": os.path.join(BASE_DIR, ".cache"),
     }
 }
+
+LOGOUT_REDIRECT_URL = "login"
