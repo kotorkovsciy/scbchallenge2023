@@ -65,3 +65,12 @@ class Statistic(models.Model):
     vacancies_count = models.IntegerField()
     candidates_count = models.IntegerField()
     stages_count = models.IntegerField()
+
+class Resume(models.Model):
+    id = models.IntegerField(primary_key=True)
+    title = models.TextField()
+    age = models.TextField()
+    resume_status = models.TextField()
+    excpirience_sum = models.TextField()
+    last_experience_link = models.TextField()
+    last_update = models.TextField()
