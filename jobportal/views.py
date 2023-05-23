@@ -46,15 +46,39 @@ def register_view(request):
 
 
 def vacancy_board(request, page=0):
-    vacancies = Resume.objects.filter()
-    count_pages = round(vacancies.count() / 10)
-    start_page = page*10
-    end_page = start_page + 10
+    hh_filter = FilterUrl().create_url(
+        request.GET.get("only_gender", False),
+        request.GET.get("gender", "unknown"),
+        request.GET.get("area", 113),
+        request.GET.get("work_exp1t3", False),
+        request.GET.get("work_exp3t6", False),
+        request.GET.get("work_exp_noExperience", False),
+        request.GET.get("work_exp_more", False)
+    )
+    hh = parseHh(hh_filter)
+    serp = hh.get_serp(page)
+    vacancies = []
+    for j in range(len(serp)):
+        resume = hh.parse_single_resume(serp[j])
+        vacancies.append(
+            {
+                "id": resume["id"],
+                "title": resume["title"],
+                "age": resume["age"],
+                "resume_status": resume["resume_status"],
+                "excpirience_sum": resume["excpirience_sum"],
+                "last_experience_link": resume["last_experience_link"],
+                "last_update": resume["last_update"],
+                "title_url": resume["title_url"],
+                "salary": resume["salary"]
+            }
+        )
+
     return render(request, "vacancy_board.html", 
                 {
-                    "vacancies": vacancies[start_page:end_page], 
+                    "vacancies": vacancies, 
                     "page": page, 
-                    "count_pages": count_pages
+                    "count_pages": 250
                 }
     )
 
