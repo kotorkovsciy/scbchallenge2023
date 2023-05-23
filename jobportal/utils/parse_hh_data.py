@@ -35,6 +35,12 @@ class parseHh():
 
         title = serp.find("a", {"class": "serp-item__title"}).text
         title_url = serp.find("a", {"class": "serp-item__title"})["href"]
+
+        if serp.find("div", {"div": "bloko-text bloko-text_large bloko-text_strong"}) is not None:
+            salary = serp.find("div", {"div": "bloko-text bloko-text_large bloko-text_strong"}).text
+        else:
+            salary = 0
+
         if serp.find("span", {"data-qa": "resume-serp__resume-age"}) is not None:
             age = serp.find("span", {"data-qa": "resume-serp__resume-age"}).find("span").text
         else:
@@ -56,6 +62,7 @@ class parseHh():
         return {"id": id_resume,
                 "title": title,
                 "title_url": title_url,
+                "salary": salary,
                 "age": age,
                 "resume_status": resume_status,
                 "excpirience_sum": clean_data.remove_many_spaces(str(excpirience_sum)),
