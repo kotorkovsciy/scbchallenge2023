@@ -78,7 +78,8 @@ def vacancy_board(request, page=0):
                 {
                     "vacancies": vacancies, 
                     "page": page, 
-                    "count_pages": 250
+                    "count_pages": 250,
+                    "url": hh_filter
                 }
     )
 
