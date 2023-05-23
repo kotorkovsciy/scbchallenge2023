@@ -2,14 +2,13 @@
 
 {% block content %}
 {% for vacancy in vacancies %}
-  <div>
+  <div class="vacancy">
     <h3>{{ vacancy.title }}</h3>
-    <p>{{ vacancy.description }}</p>
-    <p>Requirements: {{ vacancy.requirements }}</p>
-    <p>Deadline: {{ vacancy.deadline }}</p>
-    <p>Created by: {{ vacancy.created_by }}</p>
+    <p class="description">{{ vacancy.description }}</p>
+    <p class="requirements">Requirements: {{ vacancy.requirements }}</p>
+    <p class="deadline">Deadline: {{ vacancy.deadline }}</p>
+    <p class="created-by">Created by: {{ vacancy.created_by }}</p>
   </div>
-  <hr>
 {% empty %}
   <p>No vacancies available</p>
 {% endfor %}
