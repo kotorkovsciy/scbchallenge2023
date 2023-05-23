@@ -26,6 +26,12 @@ class parseHh():
     def __page_serp(self, soup):
         table = soup.find("main", {"class": "resume-serp-content"})
         return table.find_all("div", {"class": "serp-item"})
+
+    def __page_pag(self, soup):
+        return soup.find_all("span", {"class": "pager-item-not-in-short-range"})[-1].text
+
+    def get_paginator(self, page:int):
+        return self.__page_pag(self.__soup_resume(page))
     def get_serp(self, page: int):
         return self.__page_serp(self.__soup_resume(page))
 
@@ -38,7 +44,7 @@ class parseHh():
 
         if serp.find("div", {"class": "bloko-text bloko-text_large bloko-text_strong"}) is not None:
             salary = serp.find("div", {"class": "bloko-text bloko-text_large bloko-text_strong"}).text
-        else:   
+        else:
             salary = 0
 
         if serp.find("span", {"data-qa": "resume-serp__resume-age"}) is not None:
@@ -59,6 +65,8 @@ class parseHh():
 
         last_update = serp.find("div", {"class": "bloko-text bloko-text_tertiary"}).find_all("span")[2].text
         id_resume = serp.attrs["data-resume-id"]
+
+        paginator_max = serp.find("div", {"class": "pager"}).find("span")[-1].text
         return {"id": id_resume,
                 "title": title,
                 "title_url": title_url,
@@ -67,7 +75,8 @@ class parseHh():
                 "resume_status": resume_status,
                 "excpirience_sum": clean_data.remove_many_spaces(str(excpirience_sum)),
                 "last_experience_link": last_experience_link,
-                "last_update": clean_data.remove_many_spaces(str(last_update))
+                "last_update": clean_data.remove_many_spaces(str(last_update)),
+                "paginator_max": paginator_max
                 }
 
 class FilterUrl():
