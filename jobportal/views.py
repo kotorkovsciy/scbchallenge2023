@@ -10,7 +10,7 @@ from .forms import UserRegistrationForm
 from .forms import VacancyForm
 from .models import UserProfile
 from .models import Resume
-from .utils.parse_hh_data import parseHh
+from .utils.parse_hh_data import parseHh, FilterUrl
 from django.core.paginator import Paginator
 
 @login_required
@@ -75,9 +75,10 @@ def login_view(request):
 
 def update_resumes(request):
     if request.method != "POST":
-        hh = parseHh()
-        for i in range(250):
-            serp = hh.get_serp(i, 1)
+        hh_filter = FilterUrl().create_url()
+        hh = parseHh(hh_filter)
+        for i in range(20):
+            serp = hh.get_serp(i)
             for j in range(len(serp)):
                 resume = hh.parse_single_resume(serp[j])
                 if not Resume.objects.filter(id=resume["id"]).exists():
@@ -89,7 +90,8 @@ def update_resumes(request):
                         excpirience_sum=resume["excpirience_sum"],
                         last_experience_link=resume["last_experience_link"],
                         last_update=resume["last_update"],
-                        title_url=resume["title_url"]
+                        title_url=resume["title_url"],
+                        salary=resume["salary"]
                     )
                 else:
                     pass
