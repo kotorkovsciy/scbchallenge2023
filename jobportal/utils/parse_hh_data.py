@@ -15,7 +15,7 @@ class parseHh():
 
     def __init__(self, url):
         headers: dict = {"User-Agent": UserAgent().random}
-        self.url = url
+        self.url = "https://hh.ru/search/resume?" + url
         self.session = Session()
         self.session.headers.update(headers)
 
@@ -85,9 +85,9 @@ class FilterUrl():
                      work_exp1t3: bool = False,
                      work_exp3t6: bool = False,
                      work_exp_noExperience: bool = False,
-                     work_exp_more: bool = False,
+                     work_exp_more: bool = False
                      ):
-        main_url = "https://hh.ru/search/resume?"
+
         if only_gender: only_gender = "only_with_gender"
         else: only_gender = ""
 
@@ -109,5 +109,5 @@ class FilterUrl():
             exp_more = "more"
 
         res_exp = f"{exp}{exp1t3}/{exp}{exp3t6}/{exp}{exp_noExperience}/{exp}{exp_more}"
-        url = f"{main_url}area={area}&label={only_gender}&gender={gender}&{res_exp}"
+        url = f"area={area}&label={only_gender}&gender={gender}&{res_exp}"
         return url
