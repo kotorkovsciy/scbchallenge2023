@@ -20,14 +20,14 @@
     {% else %}
     {% if page == 0 %}
         <a>Page {{ page|add:1 }}</a>
-        <a href="/vacancies/{{ page|add:1 }}">Next</a>
+        <a href="/vacancies/{{ page|add:1 }}/{{ url }}">Next</a>
     {% elif page == count_pages %}
-        <a href="/vacancies/{{ page|add:-1 }}">Previous</a>
+        <a href="/vacancies/{{ page|add:-1 }}/{{ url }}">Previous</a>
         <a>Page {{ page|add:1 }}</a>
     {% else %}
-        <a href="/vacancies/{{ page|add:-1 }}">Previous</a>
+        <a href="/vacancies/{{ page|add:-1 }}/{{ url }}">Previous</a>
         <a>Page {{ page|add:1 }}</a>
-        <a href="/vacancies/{{ page|add:1 }}">Next</a>
+        <a href="/vacancies/{{ page|add:1 }}/{{ url }}">Next</a>
     {% endif %}
         <p>Page {{ page|add:1 }} of {{ count_pages }}</p>
     {% endif %}
