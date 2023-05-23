@@ -70,6 +70,7 @@ class Resume(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.TextField()
     title_url = models.TextField()
+    salary = models.TextField()
     age = models.TextField()
     resume_status = models.TextField()
     excpirience_sum = models.TextField()
