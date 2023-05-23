@@ -19,15 +19,15 @@ class parseHh():
         self.session = Session()
         self.session.headers.update(headers)
 
-    def __soup_resume(self):
-        response = self.session.get(self.url)
+    def __soup_resume(self, page: int):
+        response = self.session.get(f"{self.url}&page={page}")
         return bs(response.text, "html.parser")
 
     def __page_serp(self, soup):
         table = soup.find("main", {"class": "resume-serp-content"})
         return table.find_all("div", {"class": "serp-item"})
-    def get_serp(self, page: int, area: int):
-        return self.__page_serp(self.__soup_resume(page, area))
+    def get_serp(self, page: int):
+        return self.__page_serp(self.__soup_resume(page))
 
     def parse_single_resume(self, serp):
         if serp is None:
@@ -65,7 +65,6 @@ class parseHh():
 
 class FilterUrl():
     def create_url(self,
-                     page: int,
                      only_gender: bool = False,
                      gender: str = "unknown",
                      area: int = 113,
@@ -97,5 +96,5 @@ class FilterUrl():
             exp_more = "more"
 
         res_exp = f"{exp}{exp1t3}/{exp}{exp3t6}/{exp}{exp_noExperience}/{exp}{exp_more}"
-        url = f"{main_url}area={area}&label={only_gender}&gender={gender}&{res_exp}&page={page}"
+        url = f"{main_url}area={area}&label={only_gender}&gender={gender}&{res_exp}"
         return url
