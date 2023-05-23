@@ -66,7 +66,6 @@ class parseHh():
         last_update = serp.find("div", {"class": "bloko-text bloko-text_tertiary"}).find_all("span")[2].text
         id_resume = serp.attrs["data-resume-id"]
 
-        paginator_max = serp.find("div", {"class": "pager"}).find("span")[-1].text
         return {"id": id_resume,
                 "title": title,
                 "title_url": title_url,
@@ -76,7 +75,6 @@ class parseHh():
                 "excpirience_sum": clean_data.remove_many_spaces(str(excpirience_sum)),
                 "last_experience_link": last_experience_link,
                 "last_update": clean_data.remove_many_spaces(str(last_update)),
-                "paginator_max": paginator_max
                 }
 
 class FilterUrl():
@@ -93,7 +91,6 @@ class FilterUrl():
         if only_gender: only_gender = "only_with_gender"
         else: only_gender = ""
 
-        print(gender != "male" or gender != "female")
         if gender not in ["male", "female"]:
             gender = "unknown"
 
