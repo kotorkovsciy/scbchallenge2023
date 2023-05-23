@@ -2,14 +2,34 @@
 
 {% block content %}
 {% for vacancy in vacancies %}
-  <div class="vacancy">
-    <h3>{{ vacancy.title }}</h3>
-    <p class="description">{{ vacancy.description }}</p>
-    <p class="requirements">Requirements: {{ vacancy.requirements }}</p>
-    <p class="deadline">Deadline: {{ vacancy.deadline }}</p>
-    <p class="created-by">Created by: {{ vacancy.created_by }}</p>
-  </div>
+<div class="vacancy">
+    <h3><a href="https://hh.ru{{ vacancy.title_url }}">{{ vacancy.title }}</a></h3>
+    <p class="age">{{ vacancy.age }}</p>
+    <p class="resume_status">{{ vacancy.resume_status }}</p>
+    <p class="excpirience_sum">Опыт работы: {{ vacancy.excpirience_sum }}</p>
+    <p class="last_experience_link">Последнее место работы: {{ vacancy.last_experience_link }}</p>
+    <p class="last_update">Обновлено: {{ vacancy.last_update }}</p>
+</div>
 {% empty %}
-  <p>No vacancies available</p>
+<p>No vacancies available</p>
 {% endfor %}
+
+<div class="paginator">
+    {% if count_pages == 0 %}
+    {% else %}
+    {% if page == 0 %}
+        <a>Page {{ page|add:1 }}</a>
+        <a href="/vacancies/{{ page|add:1 }}">Next</a>
+    {% elif page == count_pages %}
+        <a href="/vacancies/{{ page|add:-1 }}">Previous</a>
+        <a>Page {{ page|add:1 }}</a>
+    {% else %}
+        <a href="/vacancies/{{ page|add:-1 }}">Previous</a>
+        <a>Page {{ page|add:1 }}</a>
+        <a href="/vacancies/{{ page|add:1 }}">Next</a>
+    {% endif %}
+        <p>Page {{ page|add:1 }} of {{ count_pages }}</p>
+    {% endif %}
+</div>
+
 {% endblock %}

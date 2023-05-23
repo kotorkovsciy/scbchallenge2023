@@ -3,13 +3,15 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.http import HttpResponse
 
 from .forms import UserLoginForm
 from .forms import UserRegistrationForm
 from .forms import VacancyForm
 from .models import UserProfile
-from .models import Vacancy
-
+from .models import Resume
+from .utils.parse_hh_data import parseHh
+from django.core.paginator import Paginator
 
 @login_required
 def create_vacancy(request):
@@ -43,10 +45,18 @@ def register_view(request):
     return render(request, "register.html", {"form": form})
 
 
-def vacancy_board(request):
-    vacancies = Vacancy.objects.filter(status=True)
-    return render(request, "vacancy_board.html", {"vacancies": vacancies})
-
+def vacancy_board(request, page=0):
+    vacancies = Resume.objects.filter()
+    count_pages = round(vacancies.count() / 10)
+    start_page = page*10
+    end_page = start_page + 10
+    return render(request, "vacancy_board.html", 
+                {
+                    "vacancies": vacancies[start_page:end_page], 
+                    "page": page, 
+                    "count_pages": count_pages
+                }
+    )
 
 def login_view(request):
     if request.method == "POST":
@@ -62,3 +72,29 @@ def login_view(request):
         form = UserLoginForm()
 
     return render(request, "login.html", {"form": form})
+
+def update_resumes(request):
+    if request.method != "POST":
+        hh = parseHh()
+        for i in range(250):
+            serp = hh.get_serp(i, 1)
+            for j in range(len(serp)):
+                resume = hh.parse_single_resume(serp[j])
+                if not Resume.objects.filter(id=resume["id"]).exists():
+                    Resume.objects.create(
+                        id=resume["id"],
+                        title=resume["title"],
+                        age=resume["age"],
+                        resume_status=resume["resume_status"],
+                        excpirience_sum=resume["excpirience_sum"],
+                        last_experience_link=resume["last_experience_link"],
+                        last_update=resume["last_update"],
+                        title_url=resume["title_url"]
+                    )
+                else:
+                    pass
+                    # TODO: если resume не активно, то удалить
+
+        return HttpResponse()
+    
+    return HttpResponse(status=404)
