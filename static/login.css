@@ -61,3 +61,11 @@ button[type=submit] {
 button[type=submit]:hover {
     background-color: #666;
 }
+
+.url_reg{
+    grid-area: register;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 5px;
+}

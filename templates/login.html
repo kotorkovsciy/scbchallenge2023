@@ -5,14 +5,16 @@
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}" />
 </head>
 
 <body>
-    <h2>Login</h2>
+    <h2>Авторизация</h2>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Login</button>
+        <button type="submit">Войти</button>
+        <a href="{% url 'user_registration' %}" class="url_reg">Регистрация</a>
     </form>
 </body>
 
