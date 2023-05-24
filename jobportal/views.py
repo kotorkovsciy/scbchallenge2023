@@ -46,7 +46,7 @@ def register_view(request):
     return render(request, "register.html", {"form": form})
 
 
-def resume_board(request, page=0):
+def resume_board(request):
     hh_filter = FilterUrl().create_url(
         request.GET.get("only_gender", False),
         request.GET.get("gender", "unknown"),
@@ -57,6 +57,7 @@ def resume_board(request, page=0):
         request.GET.get("work_exp_more", False)
     )
     hh = parseHh(hh_filter)
+    page = request.GET.get("page", 0)
     serp = hh.get_serp(page)
     resumes = []
     for j in range(len(serp)):
@@ -82,14 +83,15 @@ def resume_board(request, page=0):
                     "resumes": resumes, 
                     "page": page, 
                     "count_pages": 250,
-                    "url": hh_filter,
+                    "url": "&%s" %hh_filter[1:],
                     "areas": {
                         "current": {
                             "name": filters["name"],
                             "id": filters["id"]
                         },
                         "all": filters["areas"]
-                    }
+                    },
+                    "current_url": "resumes"
                 }
     )
 
