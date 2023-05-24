@@ -12,6 +12,7 @@ from .models import UserProfile
 from .models import Resume
 from .utils.parse_hh_data import parseHh, FilterUrl
 from django.core.paginator import Paginator
+from .utils.getFilter_data import FilterData
 
 @login_required
 def create_vacancy(request):
@@ -74,12 +75,21 @@ def vacancy_board(request, page=0):
             }
         )
 
+    filters = FilterData().get_area()
+
     return render(request, "vacancy_board.html", 
                 {
                     "vacancies": vacancies, 
                     "page": page, 
                     "count_pages": 250,
-                    "url": hh_filter
+                    "url": hh_filter,
+                    "areas": {
+                        "current": {
+                            "name": filters["name"],
+                            "id": filters["id"]
+                        },
+                        "all": filters["areas"]
+                    }
                 }
     )
 
