@@ -50,7 +50,7 @@ def vacancy_board(request, page=0):
     hh_filter = FilterUrl().create_url(
         request.GET.get("only_gender", False),
         request.GET.get("gender", "unknown"),
-        request.GET.get("area", 113),
+        request.GET.getlist("area", [113]),
         request.GET.get("work_exp1t3", False),
         request.GET.get("work_exp3t6", False),
         request.GET.get("work_exp_noExperience", False),

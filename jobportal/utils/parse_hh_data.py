@@ -81,7 +81,7 @@ class FilterUrl():
     def create_url(self,
                      only_gender: bool = False,
                      gender: str = "unknown",
-                     area: int = 113,
+                     area: list = [113],
                      work_exp1t3: bool = False,
                      work_exp3t6: bool = False,
                      work_exp_noExperience: bool = False,
@@ -109,5 +109,6 @@ class FilterUrl():
             exp_more = "more"
 
         res_exp = f"{exp}{exp1t3}/{exp}{exp3t6}/{exp}{exp_noExperience}/{exp}{exp_more}"
-        url = f"?area={area}&label={only_gender}&gender={gender}&{res_exp}"
+        area_param = '&'.join([f"area={a}" for a in area])
+        url = f"?{area_param}&label={only_gender}&gender={gender}&{res_exp}"
         return url
