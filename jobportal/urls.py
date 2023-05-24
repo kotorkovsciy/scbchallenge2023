@@ -10,7 +10,6 @@ from .views import update_resumes
 urlpatterns = [
     path("user/register/", register_view, name="user_registration"),
     path("resumes/", resume_board, name="resume_board"),
-    path("resumes/<int:page>/", resume_board, name="resume_board"),
     path("login/", login_view, name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("create-vacancy/", create_vacancy, name="create_vacancy"),
