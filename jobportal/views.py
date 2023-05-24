@@ -17,7 +17,7 @@ from .utils.getFilter_data import FilterData
 @login_required
 def create_vacancy(request):
     if request.user.profile.role != "Рекрутер":
-        return redirect("vacancy_board")
+        return redirect("resume_board")
 
     if request.method == "POST":
         form = VacancyForm(request.POST)
@@ -25,7 +25,7 @@ def create_vacancy(request):
             vacancy = form.save(commit=False)
             vacancy.created_by = request.user
             vacancy.save()
-            return redirect("vacancy_board")
+            return redirect("resume_board")
     else:
         form = VacancyForm()
 
@@ -46,7 +46,7 @@ def register_view(request):
     return render(request, "register.html", {"form": form})
 
 
-def vacancy_board(request, page=0):
+def resume_board(request, page=0):
     hh_filter = FilterUrl().create_url(
         request.GET.get("only_gender", False),
         request.GET.get("gender", "unknown"),
@@ -58,10 +58,10 @@ def vacancy_board(request, page=0):
     )
     hh = parseHh(hh_filter)
     serp = hh.get_serp(page)
-    vacancies = []
+    resumes = []
     for j in range(len(serp)):
         resume = hh.parse_single_resume(serp[j])
-        vacancies.append(
+        resumes.append(
             {
                 "id": resume["id"],
                 "title": resume["title"],
@@ -77,9 +77,9 @@ def vacancy_board(request, page=0):
 
     filters = FilterData().get_area()
 
-    return render(request, "vacancy_board.html", 
+    return render(request, "resume_board.html", 
                 {
-                    "vacancies": vacancies, 
+                    "resumes": resumes, 
                     "page": page, 
                     "count_pages": 250,
                     "url": hh_filter,
@@ -102,7 +102,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("vacancy_board")
+                return redirect("resume_board")
     else:
         form = UserLoginForm()
 

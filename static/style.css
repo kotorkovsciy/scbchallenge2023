@@ -5,7 +5,7 @@ body {
     color: #333;
 }
 
-.vacancy {
+.resume {
     background-color: #fff;
     border-radius: 5px;
     padding: 20px;
@@ -14,36 +14,36 @@ body {
     margin-right: 5%;
 }
 
-.vacancy h3 a {
+.resume h3 a {
     text-decoration: none;
     font-size: 24px;
     margin-bottom: 10px;
     color: #333;
 }
 
-.vacancy p {
+.resume p {
     font-size: 18px;
     margin-bottom: 5px;
     color: #666;
 }
 
-.vacancy p.age {
+.resume p.age {
     font-weight: bold;
 }
 
-.vacancy p.resume_status {
+.resume p.resume_status {
     font-style: italic;
 }
 
-.vacancy p.excpirience_sum {
+.resume p.excpirience_sum {
     font-weight: bold;
 }
 
-.vacancy p.last_experience_link {
+.resume p.last_experience_link {
     font-style: italic;
 }
 
-.vacancy p.last_update {
+.resume p.last_update {
     font-size: 14px;
     color: #999;
     margin-top: 10px;
@@ -84,7 +84,7 @@ body {
     grid-gap: 20px;
     grid-template-areas:
         "header header header"
-        "vacancies vacancies filters"
+        "resumes resumes filters"
         "footer footer footer";
 }
 
@@ -147,8 +147,8 @@ h1 {
     color: #333;
 }
 
-.vacancies {
-    grid-area: vacancies;
+.resumes {
+    grid-area: resumes;
 }
 
 .filters {
@@ -168,7 +168,7 @@ h1 {
 }
 
 /* Дополнительные стили для вакансий и фильтров */
-.vacancy {
+.resume {
     background-color: #fff;
     border-radius: 5px;
     padding: 20px;
