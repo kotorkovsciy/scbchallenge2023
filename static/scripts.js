@@ -46,3 +46,16 @@ checkboxes.forEach(function (checkbox) {
         window.location.href = newUrl;
     });
 });
+
+function update_url(){
+    checkboxes.forEach(function (checkbox) {
+        var savedValue = getCookie(checkbox.name + "_" + checkbox.value);
+
+        if (savedValue) {
+            checkbox.checked = true;
+            if (window.location.search.indexOf("&" + checkbox.name + "=" + checkbox.value) == -1){
+                window.history.replaceState({}, '', `${window.location.href + "&" + checkbox.name + "=" + checkbox.value}`)
+            }
+        }
+    });
+}

@@ -7,11 +7,17 @@
         {% for resume in resumes %}
         <div class="resume">
             <h3><a href="https://hh.ru{{ resume.title_url }}">{{ resume.title }}</a></h3>
-            <p class="age">{{ resume.age }}</p>
+            {% if resume.age != 0 %}
+                <p class="age">{{ resume.age }}</p>
+            {% endif %}
             <p class="salary">{{ resume.salary }}</p>
             <p class="resume_status">{{ resume.resume_status }}</p>
-            <p class="excpirience_sum">Опыт работы: {{ resume.excpirience_sum }}</p>
-            <p class="last_experience_link">Последнее место работы: {{ resume.last_experience_link }}</p>
+            {% if resume.excpirience_sum != 0 %}
+                <p class="excpirience_sum">Опыт работы: {{ resume.excpirience_sum }}</p>
+            {% endif %}
+            {% if resume.last_experience_link != 0 %}
+                <p class="last_experience_link">Последнее место работы: {{ resume.last_experience_link }}</p>
+            {% endif %}
             <p class="last_update">Обновлено: {{ resume.last_update }}</p>
         </div>
         {% empty %}
@@ -41,23 +47,33 @@
 <div class="paginator">
     {% if count_pages == 0 %}
     {% else %}
-    {% if page == 0 %}
-        <a>Page {{ page|add:1 }}</a>
-        <a href="/resumes/{{ page|add:1 }}/{{ url }}">Next</a>
-    {% elif page == count_pages %}
-        <a href="/resumes/{{ page|add:-1 }}/{{ url }}">Previous</a>
-        <a>Page {{ page|add:1 }}</a>
-    {% else %}
-        <a href="/resumes/{{ page|add:-1 }}/{{ url }}">Previous</a>
-        <a>Page {{ page|add:1 }}</a>
-        <a href="/resumes/{{ page|add:1 }}/{{ url }}">Next</a>
-    {% endif %}
+        {% if page|add:0 == 0 %}
+            <a>Page {{ page|add:1 }}</a>
+            <a href="/resumes/?page={{ page|add:1 }}{{ url }}">Next</a>
+        {% elif page|add:1 == count_pages %}
+            <a href="/resumes/?page={{ page|add:-1 }}{{ url }}">Previous</a>
+            <a>Page {{ page|add:1 }}</a>
+        {% else %}
+            <a href="/resumes/?page={{ page|add:-1 }}{{ url }}">Previous</a>
+            <a>Page {{ page|add:1 }}</a>
+            <a href="/resumes/?page={{ page|add:1 }}{{ url }}">Next</a>
+        {% endif %}
         <p>Page {{ page|add:1 }} of {{ count_pages }}</p>
     {% endif %}
 </div>
 
 <script>
     setCookie("area_" + "{{areas.current.id}}", "area_" + "{{areas.current.id}}");
+    if (window.location.search == "") {
+        window.history.replaceState({}, '', `${window.location.pathname}?page={{page}}&area={{areas.current.id}}`);
+        update_url();
+    } else if (window.location.search == "?"){
+        window.history.replaceState({}, '', `${window.location.pathname}?page={{page}}&area={{areas.current.id}}`);
+        update_url();
+    }
+    else {
+        update_url();
+    }
 </script>
 
 {% endblock %}
