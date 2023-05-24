@@ -5,12 +5,18 @@
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="{% static 'register.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}" />
 </head>
 
+<body>
+
+<h2>Регистрация</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Регистрация</button>
+    <button type="submit">Зарегистрироваться</button>
+    <a href="{% url 'login' %}" class="url_log">Авторизация</a>
 </form>
 
+</body>
 </html>

@@ -10,6 +10,13 @@ h1 {
     color: #333;
 }
 
+h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
 form {
     background-color: #fff;
     border-radius: 5px;
@@ -89,4 +96,12 @@ button[type=submit] {
 
 button[type=submit]:hover {
     background-color: #666;
+}
+
+.url_log{
+    grid-area: register;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 5px;
 }
