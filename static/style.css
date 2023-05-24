@@ -90,7 +90,7 @@ body {
 }
 
 h1 {
-    grid-area: header;
+    /* grid-area: header; */
     text-align: center;
     font-size: 36px;
     margin-bottom: 30px;
@@ -103,6 +103,9 @@ h1 {
 
 .filters {
     grid-area: filters;
+}
+
+.filter {
     background-color: #fff;
     border-radius: 5px;
     padding: 20px;

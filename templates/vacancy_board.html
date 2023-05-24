@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="wrapper">
-    <h1>Job Vacancies</h1>
     <div class="vacancies">
+        <h1>Резюме</h1>
         {% for vacancy in vacancies %}
         <div class="vacancy">
             <h3><a href="https://hh.ru{{ vacancy.title_url }}">{{ vacancy.title }}</a></h3>
@@ -19,37 +19,47 @@
         {% endfor %}
     </div>
     <div class="filters">
-        <h3>Условия поиска</h3>
-        <form>
-            <h3>Регион</h3>
-            <div class="areas">
-                <div class="regions">
-                    <label><input type="checkbox" name="region" value="{{ areas.current.id }}" checked>{{ areas.current.name }}</label>
-                    {% for area in areas.all %}
-                        <label><input type="checkbox" name="region" value="{{ area.id }}">{{ area.name }}</label>
-                    {% endfor %}
+        <h1>Условия поиска</h1>
+        <div class="filter">
+            <form>
+                <h3>Регион</h3>
+                <div class="areas">
+                    <div class="regions">
+                        <label><input type="checkbox" name="area" value="{{ areas.current.id }}" checked>{{ areas.current.name }}</label>
+                        {% for area in areas.all %}
+                            <label><input type="checkbox" name="area" value="{{ area.id }}">{{ area.name }}</label>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-    <div class="footer">
-        <div class="paginator">
-            {% if count_pages == 0 %}
-            {% else %}
-            {% if page == 0 %}
-                <a>Page {{ page|add:1 }}</a>
-                <a href="/vacancies/{{ page|add:1 }}/{{ url }}">Next</a>
-            {% elif page == count_pages %}
-                <a href="/vacancies/{{ page|add:-1 }}/{{ url }}">Previous</a>
-                <a>Page {{ page|add:1 }}</a>
-            {% else %}
-                <a href="/vacancies/{{ page|add:-1 }}/{{ url }}">Previous</a>
-                <a>Page {{ page|add:1 }}</a>
-                <a href="/vacancies/{{ page|add:1 }}/{{ url }}">Next</a>
-            {% endif %}
-                <p>Page {{ page|add:1 }} of {{ count_pages }}</p>
-            {% endif %}
+            </form>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block footer %}
+<div class="paginator">
+    {% if count_pages == 0 %}
+    {% else %}
+    {% if page == 0 %}
+        <a>Page {{ page|add:1 }}</a>
+        <a href="/vacancies/{{ page|add:1 }}/{{ url }}">Next</a>
+    {% elif page == count_pages %}
+        <a href="/vacancies/{{ page|add:-1 }}/{{ url }}">Previous</a>
+        <a>Page {{ page|add:1 }}</a>
+    {% else %}
+        <a href="/vacancies/{{ page|add:-1 }}/{{ url }}">Previous</a>
+        <a>Page {{ page|add:1 }}</a>
+        <a href="/vacancies/{{ page|add:1 }}/{{ url }}">Next</a>
+    {% endif %}
+        <p>Page {{ page|add:1 }} of {{ count_pages }}</p>
+    {% endif %}
+</div>
+
+<script>
+    setCookie("area_" + "{{areas.current.id}}", "area_" + "{{areas.current.id}}");
+    // window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+    console.log(window.location.pathname)
+</script>
+
 {% endblock %}
