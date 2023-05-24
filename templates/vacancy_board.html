@@ -1,36 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% for vacancy in vacancies %}
-<div class="vacancy">
-    <h3><a href="https://hh.ru{{ vacancy.title_url }}">{{ vacancy.title }}</a></h3>
-    <p class="age">{{ vacancy.age }}</p>
-    <p class="salary">{{ vacancy.salary }}</p>
-    <p class="resume_status">{{ vacancy.resume_status }}</p>
-    <p class="excpirience_sum">Опыт работы: {{ vacancy.excpirience_sum }}</p>
-    <p class="last_experience_link">Последнее место работы: {{ vacancy.last_experience_link }}</p>
-    <p class="last_update">Обновлено: {{ vacancy.last_update }}</p>
+<div class="wrapper">
+    <h1>Job Vacancies</h1>
+    <div class="vacancies">
+        {% for vacancy in vacancies %}
+        <div class="vacancy">
+            <h3><a href="https://hh.ru{{ vacancy.title_url }}">{{ vacancy.title }}</a></h3>
+            <p class="age">{{ vacancy.age }}</p>
+            <p class="salary">{{ vacancy.salary }}</p>
+            <p class="resume_status">{{ vacancy.resume_status }}</p>
+            <p class="excpirience_sum">Опыт работы: {{ vacancy.excpirience_sum }}</p>
+            <p class="last_experience_link">Последнее место работы: {{ vacancy.last_experience_link }}</p>
+            <p class="last_update">Обновлено: {{ vacancy.last_update }}</p>
+        </div>
+        {% empty %}
+        <p>No vacancies available</p>
+        {% endfor %}
+    </div>
+    <div class="filters">
+        <h3>Условия поиска</h3>
+        <form>
+            <h3>Регион</h3>
+            <div class="areas">
+                <div class="regions">
+                    <label><input type="checkbox" name="region" value="{{ areas.current.id }}" checked>{{ areas.current.name }}</label>
+                    {% for area in areas.all %}
+                        <label><input type="checkbox" name="region" value="{{ area.id }}">{{ area.name }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        <div class="paginator">
+            {% if count_pages == 0 %}
+            {% else %}
+            {% if page == 0 %}
+                <a>Page {{ page|add:1 }}</a>
+                <a href="/vacancies/{{ page|add:1 }}/{{ url }}">Next</a>
+            {% elif page == count_pages %}
+                <a href="/vacancies/{{ page|add:-1 }}/{{ url }}">Previous</a>
+                <a>Page {{ page|add:1 }}</a>
+            {% else %}
+                <a href="/vacancies/{{ page|add:-1 }}/{{ url }}">Previous</a>
+                <a>Page {{ page|add:1 }}</a>
+                <a href="/vacancies/{{ page|add:1 }}/{{ url }}">Next</a>
+            {% endif %}
+                <p>Page {{ page|add:1 }} of {{ count_pages }}</p>
+            {% endif %}
+        </div>
+    </div>
 </div>
-{% empty %}
-<p>No vacancies available</p>
-{% endfor %}
-
-<div class="paginator">
-    {% if count_pages == 0 %}
-    {% else %}
-    {% if page == 0 %}
-        <a>Page {{ page|add:1 }}</a>
-        <a href="/vacancies/{{ page|add:1 }}/{{ url }}">Next</a>
-    {% elif page == count_pages %}
-        <a href="/vacancies/{{ page|add:-1 }}/{{ url }}">Previous</a>
-        <a>Page {{ page|add:1 }}</a>
-    {% else %}
-        <a href="/vacancies/{{ page|add:-1 }}/{{ url }}">Previous</a>
-        <a>Page {{ page|add:1 }}</a>
-        <a href="/vacancies/{{ page|add:1 }}/{{ url }}">Next</a>
-    {% endif %}
-        <p>Page {{ page|add:1 }} of {{ count_pages }}</p>
-    {% endif %}
-</div>
-
 {% endblock %}
