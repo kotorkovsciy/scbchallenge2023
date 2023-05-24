@@ -11,8 +11,7 @@ body {
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0px 0px 5px #888;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-right: 5%;
 }
 
 .vacancy h3 a {
@@ -89,8 +88,59 @@ body {
         "footer footer footer";
 }
 
+.navbar {
+    grid-area: header;
+    background-color: #fff;
+    border-radius: 5px;
+    color: #333;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-areas:
+    "logo home resume vacancy profile exit login";
+    box-shadow: 0px 0px 5px #888;
+}
+
+.navbar__logo{
+    grid-area: logo;
+    margin-top: 3%;
+    margin-left: 3%;
+}
+
+.navbar__logo{
+    width: 100px;
+}
+
+.navbar a:hover{
+    color: #3f6546;
+}
+
+.navbar__resume{
+    grid-area: resume;
+    text-decoration: none;
+    color: #333;
+    padding: 15px;
+}
+
+.navbar__vacancy{
+    grid-area: vacancy;
+    text-decoration: none;
+    color: #333;
+    padding: 15px;
+}
+
+.navbar__login {
+    grid-area: login;
+    text-decoration: none;
+    color: #333;
+    padding: 15px;
+}
+
+.navbar__login a {
+    text-decoration: none;
+    color: #333;
+}
+
 h1 {
-    /* grid-area: header; */
     text-align: center;
     font-size: 36px;
     margin-bottom: 30px;
