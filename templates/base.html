@@ -17,7 +17,7 @@
             </div>
             {% if current_url == "resumes" %}
                 <div class="navbar__resume">
-                    <a>Создать резюме</a>
+                    <a href="{% url 'create_resume' %}"> Создать резюме</a>
                 </div>
                 <div class="navbar__vacancy">
                     <a>Вакансии</a>

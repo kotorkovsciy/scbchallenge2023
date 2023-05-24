@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from django.utils import timezone
+from datetime import date
+from datetime import datetime
+from django.db.models.functions import ExtractYear
 
 class UserProfile(models.Model):
     ROLES = (
@@ -76,3 +79,27 @@ class Resume(models.Model):
     excpirience_sum = models.TextField()
     last_experience_link = models.TextField()
     last_update = models.TextField()
+
+class ResumeUser(models.Model):
+    GENDERS = (
+        ("Мужской", "Мужской"),
+        ("Женский", "Женский"),
+    )
+    first_name = models.TextField()
+    last_name = models.TextField()
+    phone_number = models.TextField()
+    city = models.TextField()
+    birthday = models.DateField()
+    age = models.IntegerField(null=True, blank=True)
+    gender = models.CharField(choices=GENDERS, max_length=10)
+    citizenship = models.TextField()
+    excpirience_sum = models.BooleanField()
+    title = models.TextField()
+    salary = models.IntegerField()
+    last_update = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="created_resume"
+    )
+    def save(self, *args, **kwargs):
+        self.age = int(date.today().strftime("%Y")) - int(self.birthday.strftime("%Y"))
+        super(ResumeUser, self).save(*args, **kwargs)

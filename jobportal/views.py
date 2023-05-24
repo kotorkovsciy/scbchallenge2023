@@ -7,9 +7,9 @@ from django.http import HttpResponse
 
 from .forms import UserLoginForm
 from .forms import UserRegistrationForm
-from .forms import VacancyForm
+from .forms import VacancyForm, ResumeForm
 from .models import UserProfile
-from .models import Resume
+from .models import Resume, ResumeUser
 from .utils.parse_hh_data import parseHh, FilterUrl
 from django.core.paginator import Paginator
 from .utils.getFilter_data import FilterData
@@ -133,7 +133,18 @@ def update_resumes(request):
                 else:
                     pass
                     # TODO: если resume не активно, то удалить
-
         return HttpResponse()
     
     return HttpResponse(status=404)
+
+def create_resume(request):
+    if request.method == "POST":
+        form = ResumeForm(request.POST)
+        if form.is_valid():
+            resume = form.save(commit = False)
+            resume.created_by = request.user
+            resume.save()
+            return redirect("resume_board")
+    else:
+        form = ResumeForm()
+    return render(request, "create_resume.html", {"form": form})
