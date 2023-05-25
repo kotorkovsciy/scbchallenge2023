@@ -31,7 +31,6 @@ class ResumeForm(forms.ModelForm):
         (True, "Есть опыт работы"),
         (False, "Нет опыта работы"),
     )
-
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
         message="Номер телефона должен быть в формате: '+999999999'. Допустимая длина составляет от 9 до 15 цифр."
@@ -48,8 +47,9 @@ class ResumeForm(forms.ModelForm):
         phone_number = forms.CharField(widget=forms.TextInput(attrs={'type': 'tel'}))
         fields = ["title", "first_name", "last_name", "phone_number", "city", "birthday", "gender", "citizenship", "excpirience_sum", "salary"]
         widgets = {
-            "birthday": DateInput(attrs={"type": "date"}), 
+            "birthday": DateInput(attrs={"type": "date"}),
             "phone_number": DateInput(attrs={"type": "tel"}),
+            "city": forms.TextInput(attrs={"type": "text"}),
             "title": forms.TextInput(attrs={"type": "text"}),
             "first_name": forms.TextInput(attrs={"type": "text"}),
             "last_name": forms.TextInput(attrs={"type": "text"}),
