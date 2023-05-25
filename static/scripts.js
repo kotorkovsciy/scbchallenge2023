@@ -72,7 +72,23 @@ radioButtons.forEach(function (radioButton) {
 });
 
 function sortActiveCheckboxes() {
-    var activeCheckboxes = Array.from(checkboxes).filter(function (checkbox) {
+    var activeCheckboxes = Array.from(document.querySelectorAll('.area')).filter(function (checkbox) {
+        var savedValue = getCookie(checkbox.name + "_" + checkbox.value);
+        return savedValue && checkbox.checked;
+    });
+
+    activeCheckboxes.sort(function (checkboxA, checkboxB) {
+        var labelA = checkboxA.parentElement.textContent.trim();
+        var labelB = checkboxB.parentElement.textContent.trim();
+        return labelA.localeCompare(labelB);
+    });
+
+    var parentElement = activeCheckboxes[0].parentElement.parentElement;
+    activeCheckboxes.forEach(function (checkbox) {
+        parentElement.insertBefore(checkbox.parentElement, parentElement.firstChild);
+    });
+
+    var activeCheckboxes = Array.from(document.querySelectorAll('.specialization')).filter(function (checkbox) {
         var savedValue = getCookie(checkbox.name + "_" + checkbox.value);
         return savedValue && checkbox.checked;
     });
