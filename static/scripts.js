@@ -71,6 +71,24 @@ radioButtons.forEach(function (radioButton) {
     });
 });
 
+function sortActiveCheckboxes() {
+    var activeCheckboxes = Array.from(checkboxes).filter(function (checkbox) {
+        var savedValue = getCookie(checkbox.name + "_" + checkbox.value);
+        return savedValue && checkbox.checked;
+    });
+
+    activeCheckboxes.sort(function (checkboxA, checkboxB) {
+        var labelA = checkboxA.parentElement.textContent.trim();
+        var labelB = checkboxB.parentElement.textContent.trim();
+        return labelA.localeCompare(labelB);
+    });
+
+    var parentElement = activeCheckboxes[0].parentElement.parentElement;
+    activeCheckboxes.forEach(function (checkbox) {
+        parentElement.insertBefore(checkbox.parentElement, parentElement.firstChild);
+    });
+}
+
 function update_url() {
     checkboxes.forEach(function (checkbox) {
         var savedValue = getCookie(checkbox.name + "_" + checkbox.value);
@@ -95,4 +113,6 @@ function update_url() {
             }
         }
     });
+
+    sortActiveCheckboxes();
 }
