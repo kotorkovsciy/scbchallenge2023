@@ -12,7 +12,7 @@ from .models import UserProfile
 from .models import Resume, ResumeUser
 from .utils.parse_hh_data import parseHh, FilterUrl
 from django.core.paginator import Paginator
-from .utils.getFilter_data import FilterData
+from .utils.getFilter_data import FilterData, JsonParser
 
 @login_required
 def create_vacancy(request):
@@ -76,7 +76,7 @@ def resume_board(request):
             }
         )
 
-    filters = FilterData().get_area()
+    reg = JsonParser().get_republics_by_country_n_republics_ids("113", request.GET.getlist("area", ["113"]))
     specializations = FilterData().get_specializations()
 
     return render(request, "resume_board.html", 
@@ -85,13 +85,7 @@ def resume_board(request):
                     "page": page, 
                     "count_pages": 250,
                     "url": "&%s" %hh_filter[1:],
-                    "areas": {
-                        "current": {
-                            "name": filters["name"],
-                            "id": filters["id"]
-                        },
-                        "all": filters["areas"]
-                    },
+                    "areas": reg,
                     "current_url": "resumes",
                     "gender": request.GET.get("gender", "unknown"),
                     "specializations": specializations

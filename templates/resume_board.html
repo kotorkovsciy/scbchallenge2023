@@ -31,9 +31,11 @@
                 <h3>Регион</h3>
                 <div class="areas">
                     <div class="regions">
-                        <label><input type="checkbox" class="area" name="area" value="{{ areas.current.id }}" checked>{{ areas.current.name }}</label>
-                        {% for area in areas.all %}
+                        {% for area in areas %}
                             <label><input type="checkbox" class="area" name="area" value="{{ area.id }}">{{ area.name }}</label>
+                            {% for city in area.areas %}
+                                <label><input type="checkbox" class="area city" name="area" value="{{ city.id }}">{{ city.name }}</label>
+                            {% endfor %}
                         {% endfor %}
                     </div>
                 </div>
