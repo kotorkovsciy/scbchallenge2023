@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>.</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}" />
     {% block head %}
     {% endblock %}
 </head>
@@ -15,7 +15,7 @@
     <header>
         <div class="navbar">
             <div>
-                <img src="{% static 'logo.png' %}", class="navbar__logo">
+                <img src="{% static 'images/logo.png' %}", class="navbar__logo">
             </div>
             {% if current_url == "resumes" %}
                 <div class="navbar__resume">
