@@ -8,6 +8,8 @@
     <title>.</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link rel="icon" type="image/png" href="{% static 'favicon.png' %}" />
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
     <header>
@@ -18,6 +20,13 @@
             {% if current_url == "resumes" %}
                 <div class="navbar__resume">
                     <a href="{% url 'create_resume' %}"> Создать резюме</a>
+                </div>
+                <div class="navbar__vacancy">
+                    <a>Вакансии</a>
+                </div>
+            {% elif current_url == "create-resume" %}
+                <div class="navbar__resume">
+                    <a>Резюме</a>
                 </div>
                 <div class="navbar__vacancy">
                     <a>Вакансии</a>
