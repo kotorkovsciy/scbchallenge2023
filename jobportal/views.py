@@ -152,3 +152,8 @@ def create_resume(request):
     else:
         form = ResumeForm()
     return render(request, "create_resume.html", {"form": form, "current_url": "create-resume"})
+
+@login_required
+def resume_detail(request, id):
+    resume = ResumeUser.objects.get(id=id)
+    return render(request, "resume_detail.html", {"resume": resume, "current_url": "create-resume"})
