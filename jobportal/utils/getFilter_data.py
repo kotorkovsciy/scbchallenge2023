@@ -10,4 +10,4 @@ class FilterData():
         return requests.get(self.area_url).json()[0]
 
     def get_specializations(self):
-        return requests.get(self.specializations_url).json()[0]
+        return requests.get(self.specializations_url).json()
