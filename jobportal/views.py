@@ -137,6 +137,7 @@ def update_resumes(request):
     
     return HttpResponse(status=404)
 
+@login_required
 def create_resume(request):
     if request.method == "POST":
         form = ResumeForm(request.POST)
@@ -147,4 +148,4 @@ def create_resume(request):
             return redirect("resume_board")
     else:
         form = ResumeForm()
-    return render(request, "create_resume.html", {"form": form})
+    return render(request, "create_resume.html", {"form": form, "current_url": "create-resume"})
