@@ -77,6 +77,7 @@ def resume_board(request):
         )
 
     filters = FilterData().get_area()
+    specializations = FilterData().get_specializations()
 
     return render(request, "resume_board.html", 
                 {
@@ -92,7 +93,8 @@ def resume_board(request):
                         "all": filters["areas"]
                     },
                     "current_url": "resumes",
-                    "gender": request.GET.get("gender", "unknown")
+                    "gender": request.GET.get("gender", "unknown"),
+                    "specializations": specializations
                 }
     )
 
