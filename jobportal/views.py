@@ -91,7 +91,8 @@ def resume_board(request):
                         },
                         "all": filters["areas"]
                     },
-                    "current_url": "resumes"
+                    "current_url": "resumes",
+                    "gender": request.GET.get("gender", "unknown")
                 }
     )
 

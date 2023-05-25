@@ -47,14 +47,51 @@ checkboxes.forEach(function (checkbox) {
     });
 });
 
-function update_url(){
+var radioButtons = document.querySelectorAll('input[type="radio"]');
+
+radioButtons.forEach(function (radioButton) {
+    var savedValue = getCookie(radioButton.name);
+
+    if (savedValue) {
+        if (savedValue === radioButton.value) {
+            radioButton.checked = true;
+        }
+    }
+
+    radioButton.addEventListener('change', function () {
+        var params = new URLSearchParams(window.location.search);
+
+        params.set(radioButton.name, radioButton.value);
+
+        setCookie(radioButton.name, radioButton.value);
+
+        var newUrl = `${window.location.pathname}?${params.toString()}`;
+
+        window.location.href = newUrl;
+    });
+});
+
+function update_url() {
     checkboxes.forEach(function (checkbox) {
         var savedValue = getCookie(checkbox.name + "_" + checkbox.value);
 
         if (savedValue) {
             checkbox.checked = true;
-            if (window.location.search.indexOf("&" + checkbox.name + "=" + checkbox.value) == -1){
-                window.history.replaceState({}, '', `${window.location.href + "&" + checkbox.name + "=" + checkbox.value}`)
+            if (window.location.search.indexOf("&" + checkbox.name + "=" + checkbox.value) === -1) {
+                window.history.replaceState({}, '', `${window.location.href + "&" + checkbox.name + "=" + checkbox.value}`);
+            }
+        }
+    });
+
+    radioButtons.forEach(function (radioButton) {
+        var savedValue = getCookie(radioButton.name);
+
+        if (savedValue) {
+            if (savedValue === radioButton.value) {
+                radioButton.checked = true;
+                if (window.location.search.indexOf("&" + radioButton.name + "=" + radioButton.value) === -1) {
+                    window.history.replaceState({}, '', `${window.location.href + "&" + radioButton.name + "=" + radioButton.value}`);
+                }
             }
         }
     });
