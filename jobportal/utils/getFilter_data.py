@@ -1,4 +1,6 @@
 import requests
+from .pars_data import get_region, get_city_byRegion, get_countries, get_republics_by_country\
+    , get_cities_by_republic, get_cities_by_republics, get_republics_by_country_n_republics_ids
 
 class FilterData():
 
@@ -16,22 +18,29 @@ class FilterData():
         return requests.get(self.specializations_url).json()
     def get_region(self):
         data = requests.get(self.area_url).json()
-        region = []
-        for i in data:
-            for j in i["areas"]:
-                reg = {}
-                reg["name"] = j["name"]
-                reg["id"] = j["id"]
-                reg["parent_id"] = j["parent_id"]
-                region.append(reg)
-        return region
+        return get_region(data)
 
-    def get_city_byRegion(self, id):
+    def get_city_byRegion(self, id: str | list):
         data = requests.get(self.area_url).json()
-        cities = []
-        for i in data:
-            for j in i["areas"]:
-                if j["id"] == str(id):
-                    for k in j["areas"]:
-                        cities.append(k["name"])
-        return cities
+        if isinstance(id, str):
+            return get_city_byRegion(id, data)
+
+class JsonParser:
+    def __init__(self):
+        self.area_url = "https://api.hh.ru/areas/"
+        self.data = requests.get(self.area_url).json()
+
+    def get_countries(self):
+        return get_countries(self.data)
+
+    def get_republics_by_country(self, country_id):
+        return get_republics_by_country(country_id, self.data)
+
+    def get_cities_by_republic(self, republic_id):
+        return get_cities_by_republic(republic_id, self.data)
+
+    def get_cities_by_republics(self, republics_id):
+        return get_cities_by_republics(republics_id, self.data)
+
+    def get_republics_by_country_n_republics_ids(self, country_id, republics_id):
+        return get_republics_by_country_n_republics_ids(country_id, republics_id, self.data)
