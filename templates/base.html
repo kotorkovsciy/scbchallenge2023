@@ -26,7 +26,7 @@
                 </div>
             {% elif current_url == "create-resume" %}
                 <div class="navbar__resume">
-                    <a>Резюме</a>
+                    <a href="{% url 'resume_board' %}">Резюме</a> 
                 </div>
                 <div class="navbar__vacancy">
                     <a>Вакансии</a>
@@ -36,7 +36,7 @@
                     <a>Создать вакансию/a>
                 </div>
                 <div class="navbar__resume">
-                    <a>Резюме</a>
+                    <a href="{% url 'resume_board' %}">Резюме</a>
                 </div>
             {% endif %}
             <div class="navbar__login">
