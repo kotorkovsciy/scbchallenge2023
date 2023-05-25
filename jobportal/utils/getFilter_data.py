@@ -14,8 +14,6 @@ class FilterData():
 
     def get_specializations(self):
         return requests.get(self.specializations_url).json()
-<<<<<<< HEAD
-
     def get_region(self):
         data = requests.get(self.area_url).json()
         region = []
@@ -37,7 +35,3 @@ class FilterData():
                     for k in j["areas"]:
                         cities.append(k["name"])
         return cities
-
-
-=======
->>>>>>> 9590cd357dfe7d2b0e69471e9a09711a1a21dbaf
