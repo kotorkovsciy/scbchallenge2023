@@ -77,6 +77,7 @@ def resume_board(request):
         )
 
     filters = FilterData().get_area()
+    specializations = FilterData().get_specializations()
 
     return render(request, "resume_board.html", 
                 {
@@ -92,7 +93,8 @@ def resume_board(request):
                         "all": filters["areas"]
                     },
                     "current_url": "resumes",
-                    "gender": request.GET.get("gender", "unknown")
+                    "gender": request.GET.get("gender", "unknown"),
+                    "specializations": specializations
                 }
     )
 
@@ -150,3 +152,8 @@ def create_resume(request):
     else:
         form = ResumeForm()
     return render(request, "create_resume.html", {"form": form, "current_url": "create-resume"})
+
+@login_required
+def resume_detail(request, id):
+    resume = ResumeUser.objects.get(id=id)
+    return render(request, "resume_detail.html", {"resume": resume, "current_url": "create-resume"})

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'resume_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="resume">
+    <h2 class="resume-title">Резюме</h2>
+    <div class="resume-info">
+        <div class="resume-row">
+            <span class="resume-label">Название вакансии:</span>
+            <span class="resume-value">{{ resume.title }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Зарплата:</span>
+            <span class="resume-value">{{ resume.salary }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Имя:</span>
+            <span class="resume-value">{{ resume.first_name }} {{ resume.last_name }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Пол:</span>
+            <span class="resume-value">{{ resume.gender }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Город:</span>
+            <span class="resume-value">{{ resume.city }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Телефон:</span>
+            <span class="resume-value">{{ resume.phone_number }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Возраст:</span>
+            <span class="resume-value">{{ resume.age }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Дата рождения:</span>
+            <span class="resume-value">{{ resume.birthday }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Гражданство:</span>
+            <span class="resume-value">{{ resume.citizenship }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Опыт работы:</span>
+            <span class="resume-value">{{ resume.excpirience_sum }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Последнее обновление:</span>
+            <span class="resume-value">{{ resume.last_update }}</span>
+        </div>
+        <div class="resume-row">
+            <span class="resume-label">Создано:</span>
+            <span class="resume-value">{{ resume.created_by }}</span>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
