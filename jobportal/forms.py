@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.forms import DateInput
 from django.core.validators import RegexValidator
 from .models import Vacancy, ResumeUser
+from datetime import date
+from datetime import datetime
 
 
 class UserLoginForm(AuthenticationForm):
@@ -41,6 +43,36 @@ class ResumeForm(forms.ModelForm):
         label="Номер телефона"
     )
     excpirience_sum = forms.ChoiceField(choices=EXPERIENCE_CHOICES, widget=forms.RadioSelect(attrs={'class': 'experience-field'}), label="Опыт работы")
+
+    def clean_birthday(self):
+        birthday = datetime.strptime(str(self.cleaned_data.get('birthday')), '%Y-%m-%d')
+        today = date.today()
+
+        age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
+
+        if age < 18:
+            raise forms.ValidationError("Ваш возраст должен быть больше 18.")
+
+        return self.cleaned_data.get('birthday')
+
+    def clean_first_name(self):
+        if not self.cleaned_data.get('first_name').isalpha():
+            raise forms.ValidationError("Ваше имя содержит не корректные символы")
+        
+        return self.cleaned_data.get('first_name')
+        
+    def clean_last_name(self):
+        if not self.cleaned_data.get('last_name').isalpha():
+            raise forms.ValidationError("Ваша фамилия содержит не корректные символы")
+        
+        return self.cleaned_data.get('last_name')
+
+    def clean_title(self):
+        lenght = len(self.cleaned_data.get('title'))
+        if lenght < 5 or lenght > 50:
+            raise forms.ValidationError("Слишком короткий заголовок. Используйте от 5 до 50 символов.")
+        
+        return self.cleaned_data.get('title')
 
     class Meta:
         model = ResumeUser
