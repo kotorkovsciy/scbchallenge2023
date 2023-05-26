@@ -101,5 +101,8 @@ class ResumeUser(models.Model):
         User, on_delete=models.CASCADE, related_name="created_resume"
     )
     def save(self, *args, **kwargs):
-        self.age = int(date.today().strftime("%Y")) - int(self.birthday.strftime("%Y"))
+        birthday = datetime.strptime(str(self.birthday), '%Y-%m-%d')
+        today = date.today()
+
+        self.age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
         super(ResumeUser, self).save(*args, **kwargs)
