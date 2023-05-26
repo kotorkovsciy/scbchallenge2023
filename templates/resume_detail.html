@@ -24,7 +24,11 @@
         </div>
         <div class="resume-row">
             <span class="resume-label">Пол:</span>
-            <span class="resume-value">{{ resume.gender }}</span>
+            {% if resume.gender == "male" %}
+                <span class="resume-value">Мужской</span>
+            {% else %}
+                <span class="resume-value">Женский</span>
+            {% endif %}
         </div>
         <div class="resume-row">
             <span class="resume-label">Город:</span>
@@ -48,7 +52,11 @@
         </div>
         <div class="resume-row">
             <span class="resume-label">Опыт работы:</span>
-            <span class="resume-value">{{ resume.excpirience_sum }}</span>
+            {% if resume.excpirience_sum == True %}
+                <span class="resume-value">Есть</span>
+            {% else %}
+                <span class="resume-value">Нет</span>
+            {% endif %}
         </div>
         <div class="resume-row">
             <span class="resume-label">Последнее обновление:</span>
