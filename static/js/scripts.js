@@ -33,7 +33,7 @@ checkboxes.forEach(function (checkbox) {
 
     checkbox.addEventListener('change', function () {
         var params = new URLSearchParams(window.location.search);
-
+        params.set("page", 0);
         if (checkbox.checked) {
             params.append(checkbox.name, checkbox.value);
             setCookie(checkbox.name + "_" + checkbox.value, checkbox.name + "_" + checkbox.value);
@@ -60,7 +60,7 @@ radioButtons.forEach(function (radioButton) {
 
     radioButton.addEventListener('change', function () {
         var params = new URLSearchParams(window.location.search);
-
+        params.set("page", 0);
         params.set(radioButton.name, radioButton.value);
 
         setCookie(radioButton.name, radioButton.value);
