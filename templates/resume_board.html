@@ -6,11 +6,17 @@
         <h1>Резюме</h1>
         {% for resume in resumes %}
         <div class="resume">
-            <h3><a href="https://hh.ru{{ resume.title_url }}" target="_blank">{{ resume.title }}</a></h3>
+            {% if resume.from_resume == "hh" %}
+                <h3><a href="https://hh.ru{{ resume.title_url }}" target="_blank">{{ resume.title }}</a></h3>
+            {% else %}
+                <h3><a href="resume/{{ resume.id }}" target="_blank">{{ resume.title }}</a></h3>
+            {% endif %}
             {% if resume.age != 0 %}
                 <p class="age">{{ resume.age }}</p>
             {% endif %}
-            <p class="salary">{{ resume.salary }}</p>
+            {% if resume.salary != 0 %}
+                <p class="salary">{{ resume.salary }}</p>
+            {% endif %}
             <p class="resume_status">{{ resume.resume_status }}</p>
             {% if resume.excpirience_sum != 0 %}
                 <p class="excpirience_sum">Опыт работы: {{ resume.excpirience_sum }}</p>
@@ -19,9 +25,15 @@
                 <p class="last_experience_link">Последнее место работы: {{ resume.last_experience_link }}</p>
             {% endif %}
             <p class="last_update">Обновлено: {{ resume.last_update }}
-                <a href="https://hh.ru{{ resume.title_url }}" target="_blank">
-                    <img class="hh_logo" src="{% static 'images/hh_logo/hh_noActive.png' %}"/>
-                </a>
+                {% if resume.from_resume == "hh" %}
+                    <a href="https://hh.ru{{ resume.title_url }}" target="_blank">
+                        <img class="hh_logo" src="{% static 'images/hh_logo/hh_noActive.png' %}"/>
+                    </a>
+                {% else %}
+                    <a href="resume/{{ resume.id }}" target="_blank">
+                        <img class="more" src="{% static 'images/more/go_NoActive.png' %}"/>
+                    </a>
+                {% endif %}
             </p>
         </div>
         {% empty %}

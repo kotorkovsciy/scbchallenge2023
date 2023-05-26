@@ -54,34 +54,52 @@ def register_view(request):
 
 
 def resume_board(request):
-    hh_filter = FilterUrl().create_url(
-        request.GET.get("only_gender", False),
-        request.GET.get("gender", "unknown"),
-        request.GET.getlist("area", [113]),
-        request.GET.get("work_exp1t3", False),
-        request.GET.get("work_exp3t6", False),
-        request.GET.get("work_exp_noExperience", False),
-        request.GET.get("work_exp_more", False)
-    )
-    hh = parseHh(hh_filter)
     page = request.GET.get("page", 0)
-    serp = hh.get_serp(page)
-    resumes = []
-    for j in range(len(serp)):
-        resume = hh.parse_single_resume(serp[j])
-        resumes.append(
-            {
-                "id": resume["id"],
-                "title": resume["title"],
-                "age": resume["age"],
-                "resume_status": resume["resume_status"],
-                "excpirience_sum": resume["excpirience_sum"],
-                "last_experience_link": resume["last_experience_link"],
-                "last_update": resume["last_update"],
-                "title_url": resume["title_url"],
-                "salary": resume["salary"]
-            }
+
+    filters = {}
+
+    if request.GET.get("gender", "unknown") != "unknown":
+        filters["gender"] = request.GET.get("gender")
+
+    resumes = ResumeUser.objects.filter(
+        **filters
+    )
+
+    start = int(page) * 19
+    end = start + 19
+
+    resumes = list(resumes[start:end])
+
+    if len(resumes) < 19:
+        amount = 19 - len(resumes)
+        hh_filter = FilterUrl().create_url(
+            request.GET.get("only_gender", False),
+            request.GET.get("gender", "unknown"),
+            request.GET.getlist("area", [113]),
+            request.GET.get("work_exp1t3", False),
+            request.GET.get("work_exp3t6", False),
+            request.GET.get("work_exp_noExperience", False),
+            request.GET.get("work_exp_more", False)
         )
+        hh = parseHh(hh_filter)
+        page = request.GET.get("page", 0)
+        serp = hh.get_serp(page)
+        for j in range(amount):
+            resume = hh.parse_single_resume(serp[j])
+            resumes.append(
+                {
+                    "id": resume["id"],
+                    "title": resume["title"],
+                    "age": resume["age"],
+                    "resume_status": resume["resume_status"],
+                    "excpirience_sum": resume["excpirience_sum"],
+                    "last_experience_link": resume["last_experience_link"],
+                    "last_update": resume["last_update"],
+                    "title_url": resume["title_url"],
+                    "salary": resume["salary"],
+                    "from_resume": "hh",
+                }
+            )
 
     reg = JsonParser().get_republics_by_country_n_republics_ids("113", request.GET.getlist("area", ["113"]))
     specializations = FilterData().get_specializations()
