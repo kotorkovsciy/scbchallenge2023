@@ -82,8 +82,8 @@ class Resume(models.Model):
 
 class ResumeUser(models.Model):
     GENDERS = (
-        ("Мужской", "Мужской"),
-        ("Женский", "Женский"),
+        ("male", "Мужской"),
+        ("female", "Женский"),
     )
     first_name = models.TextField()
     last_name = models.TextField()
@@ -94,7 +94,7 @@ class ResumeUser(models.Model):
     gender = models.CharField(choices=GENDERS, max_length=10)
     citizenship = models.TextField()
     excpirience_sum = models.BooleanField()
-    title = models.TextField()
+    title = models.TextField(max_length=50)
     salary = models.IntegerField()
     last_update = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
