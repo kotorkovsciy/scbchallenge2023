@@ -54,10 +54,17 @@ body {
 }
 
 
-.resume p.last_update img {
+.resume p.last_update img.hh_logo {
     width: 25px;
     height: 25px;
     float: right;
+}
+
+.resume p.last_update img.more {
+    width: 70px;
+    height: 25px;
+    float: right;
+    margin-bottom: 10px;
 }
 
 .resume p.last_update img.hh_logo:hover {
@@ -67,6 +74,16 @@ body {
 
 .resume p.last_update img.hh_logo:active {
     content: url("../images/hh_logo/hh_Click.png");
+    cursor: pointer;
+}
+
+.resume p.last_update img.more:hover {
+    content: url("../images/more/go_Hover.png");
+    cursor: pointer;
+}
+
+.resume p.last_update img.more:active {
+    content: url("../images/more/go_Click.png");
     cursor: pointer;
 }
 
@@ -294,6 +311,9 @@ h1 {
     .resume {
         margin-bottom: 20px;
     }
+    .resume p.last_update img.more {
+        margin-bottom: 5px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -341,5 +361,11 @@ h1 {
     .resume {
         margin-bottom: 20px;
         margin-right: 0;
+    }
+
+    .resume p.last_update img.more {
+        margin-bottom: 5px;
+        float: none;
+        display: block;
     }
 }
