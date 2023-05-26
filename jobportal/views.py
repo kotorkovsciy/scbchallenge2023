@@ -13,7 +13,7 @@ from .models import Resume, ResumeUser
 from .utils.parse_hh_data import parseHh, FilterUrl
 from django.core.paginator import Paginator
 from .utils.getFilter_data import FilterData, JsonParser
-
+from django.contrib.auth.models import User
 
 def unauthenticated_user(view_func):
     @user_passes_test(lambda user: not user.is_authenticated, login_url='resume_board')
@@ -177,3 +177,9 @@ def create_resume(request):
 def resume_detail(request, id):
     resume = ResumeUser.objects.get(id=id)
     return render(request, "resume_detail.html", {"resume": resume, "current_url": "create-resume"})
+
+@login_required
+def profile_detail(request, id):
+    profile = User.objects.get(id=id)
+    resume = ResumeUser.objects.filter(created_by=id)
+    return render(request, "profile_detail.html", {"profile": profile, "resumes": resume, "current_url": "create-resume"})
