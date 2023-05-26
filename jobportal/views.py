@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.contrib.auth.decorators import user_passes_test
 from .forms import UserLoginForm
 from .forms import UserRegistrationForm
 from .forms import VacancyForm, ResumeForm
@@ -13,6 +13,13 @@ from .models import Resume, ResumeUser
 from .utils.parse_hh_data import parseHh, FilterUrl
 from django.core.paginator import Paginator
 from .utils.getFilter_data import FilterData, JsonParser
+
+
+def unauthenticated_user(view_func):
+    @user_passes_test(lambda user: not user.is_authenticated, login_url='resume_board')
+    def wrapper_func(request, *args, **kwargs):
+        return view_func(request, *args, **kwargs)
+    return wrapper_func
 
 @login_required
 def create_vacancy(request):
@@ -31,7 +38,7 @@ def create_vacancy(request):
 
     return render(request, "create_vacancy.html", {"form": form})
 
-
+@unauthenticated_user
 def register_view(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -92,6 +99,7 @@ def resume_board(request):
                 }
     )
 
+@unauthenticated_user
 def login_view(request):
     if request.method == "POST":
         form = UserLoginForm(request, data=request.POST)
