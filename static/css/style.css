@@ -280,3 +280,66 @@ h1 {
 .specializations::-webkit-scrollbar-thumb:hover {
     background-color: #555;
 }
+
+@media screen and (max-width: 1200px) {
+    .wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+            "header header"
+            "resumes filters"
+            "footer footer";
+    }
+
+    .resume {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto auto;
+        grid-template-areas:
+            "header"
+            "filters"
+            "resumes"
+            "footer";
+    }
+
+    .navbar {
+        grid-template-areas:
+            "logo home"
+            "resume vacancy"
+            "profile exit"
+            "login login";
+    }
+
+    .navbar__logo{
+        margin-top: 5%;
+        margin-left: 5%;
+    }
+
+    .navbar__logo{
+        width: 100px;
+    }
+
+    .navbar__resume{
+        padding: 5px;
+        margin-left: 5px;
+    }
+
+    .navbar__vacancy{
+        padding: 5px;
+        
+    }
+
+    .navbar__login {
+        padding: 5px;
+    }
+
+    .resume {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+}
