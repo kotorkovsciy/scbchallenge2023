@@ -6,7 +6,7 @@
         <h1>Резюме</h1>
         {% for resume in resumes %}
         <div class="resume">
-            <h3><a href="https://hh.ru{{ resume.title_url }}">{{ resume.title }}</a></h3>
+            <h3><a href="https://hh.ru{{ resume.title_url }}" target="_blank">{{ resume.title }}</a></h3>
             {% if resume.age != 0 %}
                 <p class="age">{{ resume.age }}</p>
             {% endif %}
@@ -18,7 +18,11 @@
             {% if resume.last_experience_link != 0 %}
                 <p class="last_experience_link">Последнее место работы: {{ resume.last_experience_link }}</p>
             {% endif %}
-            <p class="last_update">Обновлено: {{ resume.last_update }}</p>
+            <p class="last_update">Обновлено: {{ resume.last_update }}
+                <a href="https://hh.ru{{ resume.title_url }}" target="_blank">
+                    <img class="hh_logo" src="{% static 'images/hh_logo/hh_noActive.png' %}"/>
+                </a>
+            </p>
         </div>
         {% empty %}
         <p>No resumes available</p>

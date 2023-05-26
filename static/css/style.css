@@ -53,6 +53,23 @@ body {
     font-style: italic;
 }
 
+
+.resume p.last_update img {
+    width: 25px;
+    height: 25px;
+    float: right;
+}
+
+.resume p.last_update img.hh_logo:hover {
+    content: url("../images/hh_logo/hh_Hover.png");
+    cursor: pointer;
+}
+
+.resume p.last_update img.hh_logo:active {
+    content: url("../images/hh_logo/hh_Click.png");
+    cursor: pointer;
+}
+
 .paginator {
     display: flex;
     justify-content: center;
