@@ -72,8 +72,10 @@ def resume_board(request):
 
     resumes = list(resumes[start:end])
 
+
     if len(resumes) < 19:
         amount = 19 - len(resumes)
+        resumes.reverse()   
         hh_filter = FilterUrl().create_url(
             request.GET.get("only_gender", False),
             request.GET.get("gender", "unknown"),
@@ -105,6 +107,7 @@ def resume_board(request):
 
     reg = JsonParser().get_republics_by_country_n_republics_ids("113", request.GET.getlist("area", ["113"]))
     specializations = FilterData().get_specializations()
+
 
     return render(request, "resume_board.html", 
                 {
