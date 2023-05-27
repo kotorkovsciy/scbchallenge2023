@@ -62,3 +62,10 @@ class JsonParser:
     
     def tuple_cities_by_country(self, country_id):
         return tuple_cities_by_country(country_id, self.data)
+
+    def tuple_countries(self):
+        country = self.get_countries()
+        t = ()
+        for i in country:
+            t += (i["id"], i["name"]),
+        return t
