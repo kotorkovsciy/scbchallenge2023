@@ -36,9 +36,11 @@ class ResumeForm(forms.ModelForm):
         (False, "Нет опыта работы"),
     )
     CITIES = JsonParser().tuple_cities_by_country("113")
+    COUNTRIES = JsonParser().tuple_countries()
 
     region = forms.ChoiceField(choices=REGIONS, widget=forms.Select(attrs={'onClick': 'update_city()'}), label="Регион")
     city = forms.ChoiceField(choices=CITIES, widget=forms.Select(), label="Город")
+    citizenship = forms.ChoiceField(choices=COUNTRIES, widget=forms.Select(), label="Гражданство")
 
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
@@ -52,6 +54,7 @@ class ResumeForm(forms.ModelForm):
     excpirience_sum = forms.ChoiceField(choices=EXPERIENCE_CHOICES, widget=forms.RadioSelect(attrs={'class': 'experience-field'}), label="Опыт работы")
 
     salary = forms.IntegerField(
+        min_value=0,
         max_value=1000000,
         label="Зарплата"
     )
@@ -95,7 +98,7 @@ class ResumeForm(forms.ModelForm):
             "phone_number": DateInput(attrs={"type": "tel"}),
             "title": forms.TextInput(attrs={"type": "text"}),
             "first_name": forms.TextInput(attrs={"type": "text"}),
-            "last_name": forms.TextInput(attrs={"type": "text"}),
+            "last_name": forms.TextInput(attrs={"type": "text"},),
         }
         labels = {
             "title": "Заголовок",
