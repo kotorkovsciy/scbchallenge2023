@@ -44,3 +44,17 @@ class JsonParser:
 
     def get_republics_by_country_n_republics_ids(self, country_id, republics_id):
         return get_republics_by_country_n_republics_ids(country_id, republics_id, self.data)
+
+    def tuple_regions(self, id):
+        regions = self.get_republics_by_country(id)
+        t = ()
+        for i in regions:
+            t += (i["id"], i["name"]),
+        return t
+
+    def tuple_cities(self, id):
+        regions = self.get_cities_by_republic(id)
+        t = ()
+        for i in regions:
+            t += (i["id"], i["name"]),
+        return t
