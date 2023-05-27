@@ -232,3 +232,22 @@ def get_cities(request):
             },
             status=400
         )
+
+@login_required
+def get_area(request):
+    data = json.loads(request.body)
+    if request.headers["X-CSRFToken"] == request.COOKIES["csrftoken"]:
+        area = FilterData().get_parrent_area(parrent_id=data.get("id"))
+        return JsonResponse(
+            {
+                "area": area
+            },
+            status=200
+        )
+    else:
+        return JsonResponse(
+            {
+                "message": "CSRF verification failed."
+            },
+            status=400
+        )

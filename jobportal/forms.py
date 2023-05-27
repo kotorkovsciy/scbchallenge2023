@@ -47,10 +47,14 @@ class ResumeForm(forms.ModelForm):
     phone_number = forms.CharField(
         widget=forms.TextInput(attrs={'type': 'tel'}),
         validators=[phone_regex],
-        label="Номер телефона"
+        label="Номер телефона",
     )
     excpirience_sum = forms.ChoiceField(choices=EXPERIENCE_CHOICES, widget=forms.RadioSelect(attrs={'class': 'experience-field'}), label="Опыт работы")
 
+    salary = forms.IntegerField(
+        max_value=1000000,
+        label="Зарплата"
+    )
     def clean_birthday(self):
         birthday = datetime.strptime(str(self.cleaned_data.get('birthday')), '%Y-%m-%d')
         today = date.today()
