@@ -19,23 +19,30 @@
             </div>
             {% if current_url == "resumes" %}
                 <div class="navbar__resume">
-                    <a href="{% url 'create_resume' %}"> Создать резюме</a>
+                    <a href="{% url 'create_resume' %}">Создать резюме</a>
                 </div>
                 <div class="navbar__vacancy">
-                    <a>Вакансии</a>
+                    <a href="{% url 'vacancy_board' %}">Вакансии</a>
                 </div>
             {% elif current_url == "create-resume" %}
                 <div class="navbar__resume">
                     <a href="{% url 'resume_board' %}">Резюме</a> 
                 </div>
                 <div class="navbar__vacancy">
-                    <a>Вакансии</a>
+                    <a href="{% url 'vacancy_board' %}">Вакансии</a>
                 </div>
             {% elif current_url == "vacancy" %}
                 <div class="navbar__vacancy">
-                    <a>Создать вакансию/a>
+                    <a href="{% url 'create_vacancy' %}">Создать вакансию</a>
                 </div>
                 <div class="navbar__resume">
+                    <a href="{% url 'resume_board' %}">Резюме</a>
+                </div>
+            {% elif current_url == "create_vacancy" %}
+                <div class="navbar__resume">
+                    <a href="{% url 'vacancy_board' %}">Вакансии</a>
+                </div>
+                <div class="navbar__vacancy">
                     <a href="{% url 'resume_board' %}">Резюме</a>
                 </div>
             {% endif %}
