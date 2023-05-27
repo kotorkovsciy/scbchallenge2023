@@ -5,6 +5,7 @@ from datetime import date
 from datetime import datetime
 from django.db.models.functions import ExtractYear
 
+
 class UserProfile(models.Model):
     ROLES = (
         ("HRBP", "HRBP"),
@@ -85,9 +86,11 @@ class ResumeUser(models.Model):
         ("male", "Мужской"),
         ("female", "Женский"),
     )
+
     first_name = models.TextField()
     last_name = models.TextField()
     phone_number = models.TextField()
+    region = models.TextField()
     city = models.TextField()
     birthday = models.DateField()
     age = models.IntegerField(null=True, blank=True)
@@ -106,3 +109,4 @@ class ResumeUser(models.Model):
 
         self.age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
         super(ResumeUser, self).save(*args, **kwargs)
+
