@@ -17,3 +17,15 @@ function getCookie(name) {
 function setCookie(name, value) {
     document.cookie = name + "=" + value + ";SameSite=Lax;";
 }
+
+const csrftoken = getCookie('csrftoken');
+const hostname = window.location.hostname;
+const port = window.location.port;
+const protocol = window.location.protocol;
+let fullUrl;
+
+if (port) {
+    fullUrl = `${protocol}//${hostname}:${port}`;
+} else {
+    fullUrl = `${protocol}//${hostname}`;
+}
