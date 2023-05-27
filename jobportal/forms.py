@@ -58,6 +58,10 @@ class ResumeForm(forms.ModelForm):
         max_value=1000000,
         label="Зарплата"
     )
+
+    description = forms.Textarea(
+        attrs={"cols": "40", "rows": "20"}
+    )
     def clean_birthday(self):
         birthday = datetime.strptime(str(self.cleaned_data.get('birthday')), '%Y-%m-%d')
         today = date.today()
@@ -92,7 +96,7 @@ class ResumeForm(forms.ModelForm):
         model = ResumeUser
 
         phone_number = forms.CharField(widget=forms.TextInput(attrs={'type': 'tel'}))
-        fields = ["title", "first_name", "last_name", "phone_number", "region", "city", "birthday", "gender", "citizenship", "excpirience_sum", "salary"]
+        fields = ["title", "description", "first_name", "last_name", "phone_number", "region", "city", "birthday", "gender", "citizenship", "excpirience_sum", "salary"]
         widgets = {
             "birthday": DateInput(attrs={"type": "date"}),
             "phone_number": DateInput(attrs={"type": "tel"}),
@@ -102,6 +106,7 @@ class ResumeForm(forms.ModelForm):
         }
         labels = {
             "title": "Заголовок",
+            "description": "Описание",
             "first_name": "Имя",
             "last_name": "Фамилия",
             "phone_number": "Номер телефона",

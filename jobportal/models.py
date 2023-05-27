@@ -92,6 +92,7 @@ class ResumeUser(models.Model):
     phone_number = models.TextField()
     region = models.TextField()
     city = models.TextField()
+    description = models.TextField()
     birthday = models.DateField()
     age = models.IntegerField(null=True, blank=True)
     gender = models.CharField(choices=GENDERS, max_length=10)
