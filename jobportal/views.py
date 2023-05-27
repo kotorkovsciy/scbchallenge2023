@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import user_passes_test
 from .forms import UserLoginForm
 from .forms import UserRegistrationForm
 from .forms import VacancyForm, ResumeForm
-from .models import UserProfile
+from .models import UserProfile, Vacancy
 from .models import Resume, ResumeUser
 from .utils.parse_hh_data import parseHh, FilterUrl
 from django.core.paginator import Paginator
@@ -38,7 +38,23 @@ def create_vacancy(request):
     else:
         form = VacancyForm()
 
-    return render(request, "create_vacancy.html", {"form": form})
+    return render(request, "create_vacancy.html", {"form": form, "current_url": "create_vacancy"})
+
+def vacancy_board(request):
+    vacancies = Vacancy.objects.filter()
+
+    return render(
+        request, "vacancy_board.html",
+        {
+            "vacancies": vacancies,
+            "current_url": "vacancy",
+        }
+    )
+
+@login_required
+def vacancy_detail(request, id):
+    vacancy = Vacancy.objects.get(id=id)
+    return render(request, "vacancy_detail.html", {"vacancy": vacancy, "current_url": "create_vacancy"})
 
 @unauthenticated_user
 def register_view(request):
@@ -113,7 +129,7 @@ def resume_board(request):
                 {
                     "resumes": resumes, 
                     "page": page, 
-                    "count_pages": 250,
+                    "count_pages": hh.get_paginator(),
                     "url": "&%s" %hh_filter[1:],
                     "areas": reg,
                     "current_url": "resumes",

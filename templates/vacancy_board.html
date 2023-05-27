@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="wrapper">
+    <div class="resumes">
+        <h1>Вакансии</h1>
+        {% for vacancy in vacancies %}
+        <div class="resume">
+                <h3><a href="vacancy/{{ vacancy.id }}" target="_blank">{{ vacancy.title }}</a></h3>
+        </div>
+        {% empty %}
+        <p>No vacancies available</p>
+        {% endfor %}
+    </div>
+    <div class="filters">
+        <h1>Условия поиска</h1>
+        <div class="filter">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="paginator">
+
+</div>
+
+<script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+<script>
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/vacancy_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="vacancy">
+    <h2 class="vacancy-title">Вакансия</h2>
+    <div class="vacancy-info">
+        <div class="vacancy-row">
+            <span class="vacancy-label">Название вакансии:</span>
+            <span class="vacancy-value">{{ vacancy.title }}</span>
+        </div>
+        <div class="vacancy-row">
+            <span class="vacancy-label">Зарплата:</span>
+            <span class="vacancy-value">{{ vacancy.salary }}</span>
+        </div>
+        <div class="vacancy-row">
+            <span class="vacancy-label">Описание</span>
+            <span class="vacancy-value">{{ vacancy.description }}</span>
+        </div>
+        <div class="vacancy-row">
+            <span class="vacancy-label">Требования</span>
+            <span class="vacancy-value">{{ vacancy.requirements }}</span>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
