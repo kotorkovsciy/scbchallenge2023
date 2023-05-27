@@ -7,6 +7,7 @@ from django.core.validators import RegexValidator
 from .models import Vacancy, ResumeUser
 from datetime import date
 from datetime import datetime
+from .utils.getFilter_data import JsonParser
 
 
 class UserLoginForm(AuthenticationForm):
@@ -29,10 +30,15 @@ class VacancyForm(forms.ModelForm):
         widgets = {"deadline": DateInput(attrs={"type": "date"})}
 
 class ResumeForm(forms.ModelForm):
+    REGIONS = JsonParser().tuple_regions("113")
     EXPERIENCE_CHOICES = (
         (True, "Есть опыт работы"),
         (False, "Нет опыта работы"),
     )
+
+    region = forms.ChoiceField(choices=REGIONS, widget=forms.Select(attrs={'onClick': 'get_city()'}), label="Регион")
+    city = forms.ChoiceField(choices=(), widget=forms.Select(attrs={"class": "hidden"}), label="Город")
+
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
         message="Номер телефона должен быть в формате: '+999999999'. Допустимая длина составляет от 9 до 15 цифр."
@@ -68,6 +74,7 @@ class ResumeForm(forms.ModelForm):
         return self.cleaned_data.get('last_name')
 
     def clean_title(self):
+
         lenght = len(self.cleaned_data.get('title'))
         if lenght < 5 or lenght > 50:
             raise forms.ValidationError("Слишком короткий заголовок. Используйте от 5 до 50 символов.")
@@ -76,12 +83,12 @@ class ResumeForm(forms.ModelForm):
 
     class Meta:
         model = ResumeUser
+
         phone_number = forms.CharField(widget=forms.TextInput(attrs={'type': 'tel'}))
-        fields = ["title", "first_name", "last_name", "phone_number", "city", "birthday", "gender", "citizenship", "excpirience_sum", "salary"]
+        fields = ["title", "first_name", "last_name", "phone_number", "region", "city", "birthday", "gender", "citizenship", "excpirience_sum", "salary"]
         widgets = {
             "birthday": DateInput(attrs={"type": "date"}),
             "phone_number": DateInput(attrs={"type": "tel"}),
-            "city": forms.TextInput(attrs={"type": "text"}),
             "title": forms.TextInput(attrs={"type": "text"}),
             "first_name": forms.TextInput(attrs={"type": "text"}),
             "last_name": forms.TextInput(attrs={"type": "text"}),
@@ -91,6 +98,7 @@ class ResumeForm(forms.ModelForm):
             "first_name": "Имя",
             "last_name": "Фамилия",
             "phone_number": "Номер телефона",
+            "region": "Регион",
             "city": "Город",
             "birthday": "Дата рождения",
             "gender": "Пол",
