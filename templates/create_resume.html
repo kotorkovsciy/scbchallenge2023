@@ -13,3 +13,23 @@
     <button type="submit">Создать</button>
   </form>
 {% endblock %}
+
+{% block footer %}
+<script type="text/javascript">
+var label = document.querySelector("label[for='id_city']");
+
+label.style.visibility = "hidden"
+function get_city() {
+    var region = document.getElementById("id_region");
+    var city = document.getElementById("id_city");
+    if (region.value.trim() !== '') {
+        city.classList.remove("hidden");
+        label.style.visibility = "visible";
+
+    } else {
+        city.classList.add("hidden");
+        label.style.visibility = "hidden"
+    }
+}
+</script>
+{% endblock %}
