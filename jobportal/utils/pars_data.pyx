@@ -87,3 +87,21 @@ cpdef list get_republics_by_country_n_republics_ids(str country_id, list republi
                             republic["areas"].append(c)
 
     return republics
+
+cpdef tuple tuple_cities_by_country(country_id, data):
+        cdef list republics = get_republics_by_country(country_id, data)
+        cdef list republics_id = []
+        cdef tuple tuple_cities = ()
+        cdef dict republic
+
+        for republic in republics:
+            republics_id.append(republic["id"])
+
+        cdef list cities = get_cities_by_republics(republics_id, data)
+        cdef list city
+        cdef c
+
+        for city in cities:
+            for c in city:
+                tuple_cities += (c["id"], c["name"]),
+        return tuple_cities

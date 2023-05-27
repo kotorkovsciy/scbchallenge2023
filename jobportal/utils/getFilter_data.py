@@ -1,6 +1,7 @@
 import requests
 from .pars_data import get_region, get_city_byRegion, get_countries, get_republics_by_country\
-    , get_cities_by_republic, get_cities_by_republics, get_republics_by_country_n_republics_ids
+    , get_cities_by_republic, get_cities_by_republics, get_republics_by_country_n_republics_ids\
+    , tuple_cities_by_country
 
 class FilterData():
 
@@ -58,3 +59,6 @@ class JsonParser:
         for i in regions:
             t += (i["id"], i["name"]),
         return t
+    
+    def tuple_cities_by_country(self, country_id):
+        return tuple_cities_by_country(country_id, self.data)
