@@ -14,6 +14,8 @@ from .utils.parse_hh_data import parseHh, FilterUrl
 from django.core.paginator import Paginator
 from .utils.getFilter_data import FilterData, JsonParser
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+import json
 
 def unauthenticated_user(view_func):
     @user_passes_test(lambda user: not user.is_authenticated, login_url='resume_board')
@@ -183,3 +185,31 @@ def profile_detail(request, id):
     profile = User.objects.get(id=id)
     resume = ResumeUser.objects.filter(created_by=id)
     return render(request, "profile_detail.html", {"profile": profile, "resumes": resume, "current_url": "create-resume"})
+
+@login_required
+def resume_delete(request):
+    data = json.loads(request.body)
+    if request.headers["X-CSRFToken"] == request.COOKIES["csrftoken"]:
+        resume = ResumeUser.objects.get(id=data.get("id"))
+        if resume.created_by.id == request.user.id:
+            resume.delete()
+            return JsonResponse(
+                    {
+                        "message": "Резюме успешно удалено"
+                    },
+                    status = 200
+                )
+        else:
+            return JsonResponse(
+                    {
+                        "message": "Вы не можете удалить чужое резюме"
+                    },
+                    status = 400
+                )
+    else:
+        return JsonResponse(
+                {
+                    "message": "CSRF verification failed."
+                },
+                status = 400
+            )
