@@ -35,9 +35,10 @@ class ResumeForm(forms.ModelForm):
         (True, "Есть опыт работы"),
         (False, "Нет опыта работы"),
     )
+    CITIES = JsonParser().tuple_cities_by_country("113")
 
-    region = forms.ChoiceField(choices=REGIONS, widget=forms.Select(attrs={'onClick': 'get_city()'}), label="Регион")
-    city = forms.ChoiceField(choices=(), widget=forms.Select(attrs={"class": "hidden"}), label="Город")
+    region = forms.ChoiceField(choices=REGIONS, widget=forms.Select(attrs={'onClick': 'update_city()'}), label="Регион")
+    city = forms.ChoiceField(choices=CITIES, widget=forms.Select(), label="Город")
 
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
@@ -74,7 +75,6 @@ class ResumeForm(forms.ModelForm):
         return self.cleaned_data.get('last_name')
 
     def clean_title(self):
-
         lenght = len(self.cleaned_data.get('title'))
         if lenght < 5 or lenght > 50:
             raise forms.ValidationError("Слишком короткий заголовок. Используйте от 5 до 50 символов.")
