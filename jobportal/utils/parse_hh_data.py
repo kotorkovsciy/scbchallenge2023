@@ -30,8 +30,8 @@ class parseHh():
     def __page_pag(self, soup):
         return soup.find_all("span", {"class": "pager-item-not-in-short-range"})[-1].text
 
-    def get_paginator(self, page:int):
-        return self.__page_pag(self.__soup_resume(page))
+    def get_paginator(self):
+        return self.__page_pag(self.__soup_resume(0))
     def get_serp(self, page: int):
         return self.__page_serp(self.__soup_resume(page))
 
