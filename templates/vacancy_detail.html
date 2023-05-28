@@ -26,7 +26,20 @@
             <span class="vacancy-label">Требования</span>
             <span class="vacancy-value">{{ vacancy.requirements }}</span>
         </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Откликнуться</button>
+        </form>
     </div>
 </div>
 
+{% endblock %}
+
+{% block footer %}
+<script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/vacancy_detail.js' %}" type="text/javascript"></script>
+<script>
+  let get_resumes = () => {update_resumes({{ user.id }});}
+</script>
 {% endblock %}

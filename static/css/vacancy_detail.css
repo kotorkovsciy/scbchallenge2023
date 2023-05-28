@@ -41,6 +41,17 @@
     width: 70%;
 }
 
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
 @media only screen and (min-width: 768px) {
     .vacancy-info {
         flex-direction: row;
@@ -51,4 +62,8 @@
     .vacancy-row {
         width: 48%;
     }
+}
+
+.hidden {
+    display: none;
 }

@@ -7,6 +7,7 @@ from .models import Statistic
 from .models import UserProfile
 from .models import Vacancy
 from .models import ResumeUser
+from .models import Responses
 
 admin.site.register(UserProfile)
 
@@ -42,3 +43,4 @@ class MessageAdmin(admin.ModelAdmin):
 admin.site.register(Statistic)
 
 admin.site.register(ResumeUser)
+admin.site.register(Responses)

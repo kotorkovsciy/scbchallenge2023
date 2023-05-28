@@ -28,6 +28,9 @@ class Vacancy(models.Model):
         User, on_delete=models.CASCADE, related_name="created_vacancies"
     )
 
+    def __str__(self):
+        return self.title
+
 
 class Candidate(models.Model):
     first_name = models.CharField(max_length=50)
@@ -111,3 +114,18 @@ class ResumeUser(models.Model):
         self.age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
         super(ResumeUser, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.title
+
+class Responses(models.Model):
+    resume = models.ForeignKey(
+        ResumeUser, on_delete=models.CASCADE, related_name="responses"
+    )
+    vacancy = models.ForeignKey(
+        Vacancy, on_delete=models.CASCADE, related_name="responses"
+    )
+    status = models.BooleanField(default=True)
+    created_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="created_responses"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)

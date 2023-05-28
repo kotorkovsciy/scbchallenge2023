@@ -6,10 +6,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
 from .forms import UserLoginForm
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, ResponsesForm
 from .forms import VacancyForm, ResumeForm
 from .models import UserProfile, Vacancy
-from .models import Resume, ResumeUser
+from .models import Resume, ResumeUser, Responses
 from .utils.parse_hh_data import parseHh, FilterUrl
 from django.core.paginator import Paginator
 from .utils.getFilter_data import FilterData, JsonParser
@@ -53,8 +53,24 @@ def vacancy_board(request):
 
 @login_required
 def vacancy_detail(request, id):
+    if request.method == "POST":
+        form = ResponsesForm(request.POST)
+        if form.is_valid():
+            if Responses.objects.filter(vacancy=id, created_by=request.user.id).exists():
+                return redirect("vacancy_board")
+            form.save()
+            return redirect("vacancy_board")
+    else:
+        form = ResponsesForm(
+            initial={
+                "vacancy": id,
+                "created_by": request.user.id,
+            }
+        )
+
     vacancy = Vacancy.objects.get(id=id)
-    return render(request, "vacancy_detail.html", {"vacancy": vacancy, "current_url": "create_vacancy"})
+
+    return render(request, "vacancy_detail.html", {"vacancy": vacancy, "current_url": "create_vacancy", "form": form})
 
 @unauthenticated_user
 def register_view(request):
@@ -91,7 +107,7 @@ def resume_board(request):
 
     if len(resumes) < 19:
         amount = 19 - len(resumes)
-        resumes.reverse()   
+        resumes.reverse()
         hh_filter = FilterUrl().create_url(
             request.GET.get("only_gender", False),
             request.GET.get("gender", "unknown"),
@@ -125,10 +141,10 @@ def resume_board(request):
     specializations = FilterData().get_specializations()
 
 
-    return render(request, "resume_board.html", 
+    return render(request, "resume_board.html",
                 {
-                    "resumes": resumes, 
-                    "page": page, 
+                    "resumes": resumes,
+                    "page": page,
                     "count_pages": hh.get_paginator(),
                     "url": "&%s" %hh_filter[1:],
                     "areas": reg,
@@ -178,7 +194,7 @@ def update_resumes(request):
                     pass
                     # TODO: если resume не активно, то удалить
         return HttpResponse()
-    
+
     return HttpResponse(status=404)
 
 @login_required
@@ -260,6 +276,25 @@ def get_area(request):
         return JsonResponse(
             {
                 "area": area
+            },
+            status=200
+        )
+    else:
+        return JsonResponse(
+            {
+                "message": "CSRF verification failed."
+            },
+            status=400
+        )
+
+@login_required
+def get_resumes_user(request):
+    data = json.loads(request.body)
+    if request.headers["X-CSRFToken"] == request.COOKIES["csrftoken"]:
+        resumes = ResumeUser.objects.filter(created_by=data.get("id"))
+        return JsonResponse(
+            {
+                "resumes": list(resumes.values())
             },
             status=200
         )

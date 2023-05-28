@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import DateInput
 from django.core.validators import RegexValidator
-from .models import Vacancy, ResumeUser
+from .models import Vacancy, ResumeUser, Responses
 from datetime import date
 from datetime import datetime
 from .utils.getFilter_data import JsonParser
@@ -117,4 +117,24 @@ class ResumeForm(forms.ModelForm):
             "citizenship": "Гражданство",
             "excpirience_sum": "Опыт работы",
             "salary": "Зарплата"
+        }
+
+class ResponsesForm(forms.ModelForm):
+    vacancy = forms.ModelChoiceField(
+        queryset=Vacancy.objects.all(),
+        widget=forms.Select(attrs={"class": "hidden"})
+    )
+    resume = forms.ModelChoiceField(
+        queryset=ResumeUser.objects.all(),
+        label="Резюме", widget=forms.Select(attrs={'onClick': 'get_resumes()'})
+    )
+    created_by = forms.ModelChoiceField(User.objects.all(),
+        widget=forms.Select(attrs={"class": "hidden"})
+    )
+
+    class Meta:
+        model = Responses
+        fields = ["vacancy", "resume", "created_by"]
+        labels = {
+            "resume": "Резюме"
         }
