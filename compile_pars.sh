@@ -14,6 +14,7 @@ fi
 source venv/bin/activate
 
 pip install -r requirements.txt
+pip install cython
 
 cd ./jobportal/utils
 python setup.py build_ext --inplace
