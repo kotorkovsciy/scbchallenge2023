@@ -29,6 +29,7 @@ class VacancyForm(forms.ModelForm):
         fields = ["title", "description", "requirements", "deadline", "status"]
         widgets = {"deadline": DateInput(attrs={"type": "date"})}
 
+
 class ResumeForm(forms.ModelForm):
     REGIONS = JsonParser().tuple_regions("113")
     EXPERIENCE_CHOICES = (
@@ -38,71 +39,97 @@ class ResumeForm(forms.ModelForm):
     CITIES = JsonParser().tuple_cities_by_country("113")
     COUNTRIES = JsonParser().tuple_countries()
 
-    region = forms.ChoiceField(choices=REGIONS, widget=forms.Select(attrs={'onClick': 'update_city()'}), label="Регион")
+    region = forms.ChoiceField(
+        choices=REGIONS,
+        widget=forms.Select(attrs={"onClick": "update_city()"}),
+        label="Регион",
+    )
     city = forms.ChoiceField(choices=CITIES, widget=forms.Select(), label="Город")
-    citizenship = forms.ChoiceField(choices=COUNTRIES, widget=forms.Select(), label="Гражданство")
+    citizenship = forms.ChoiceField(
+        choices=COUNTRIES, widget=forms.Select(), label="Гражданство"
+    )
 
     phone_regex = RegexValidator(
-        regex=r'^\+?1?\d{9,15}$',
-        message="Номер телефона должен быть в формате: '+999999999'. Допустимая длина составляет от 9 до 15 цифр."
+        regex=r"^\+?1?\d{9,15}$",
+        message="Номер телефона должен быть в формате: '+999999999'. Допустимая длина составляет от 9 до 15 цифр.",
     )
     phone_number = forms.CharField(
-        widget=forms.TextInput(attrs={'type': 'tel'}),
+        widget=forms.TextInput(attrs={"type": "tel"}),
         validators=[phone_regex],
         label="Номер телефона",
     )
-    excpirience_sum = forms.ChoiceField(choices=EXPERIENCE_CHOICES, widget=forms.RadioSelect(attrs={'class': 'experience-field'}), label="Опыт работы")
-
-    salary = forms.IntegerField(
-        min_value=0,
-        max_value=1000000,
-        label="Зарплата"
+    excpirience_sum = forms.ChoiceField(
+        choices=EXPERIENCE_CHOICES,
+        widget=forms.RadioSelect(attrs={"class": "experience-field"}),
+        label="Опыт работы",
     )
 
-    description = forms.Textarea(
-        attrs={"cols": "40", "rows": "20"}
-    )
+    salary = forms.IntegerField(min_value=0, max_value=1000000, label="Зарплата")
+
+    description = forms.Textarea(attrs={"cols": "40", "rows": "20"})
+
     def clean_birthday(self):
-        birthday = datetime.strptime(str(self.cleaned_data.get('birthday')), '%Y-%m-%d')
+        birthday = datetime.strptime(str(self.cleaned_data.get("birthday")), "%Y-%m-%d")
         today = date.today()
 
-        age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
+        age = (
+            today.year
+            - birthday.year
+            - ((today.month, today.day) < (birthday.month, birthday.day))
+        )
 
         if age < 18:
             raise forms.ValidationError("Ваш возраст должен быть больше 18.")
 
-        return self.cleaned_data.get('birthday')
+        return self.cleaned_data.get("birthday")
 
     def clean_first_name(self):
-        if not self.cleaned_data.get('first_name').isalpha():
+        if not self.cleaned_data.get("first_name").isalpha():
             raise forms.ValidationError("Ваше имя содержит не корректные символы")
-        
-        return self.cleaned_data.get('first_name')
-        
+
+        return self.cleaned_data.get("first_name")
+
     def clean_last_name(self):
-        if not self.cleaned_data.get('last_name').isalpha():
+        if not self.cleaned_data.get("last_name").isalpha():
             raise forms.ValidationError("Ваша фамилия содержит не корректные символы")
-        
-        return self.cleaned_data.get('last_name')
+
+        return self.cleaned_data.get("last_name")
 
     def clean_title(self):
-        lenght = len(self.cleaned_data.get('title'))
+        lenght = len(self.cleaned_data.get("title"))
         if lenght < 5 or lenght > 50:
-            raise forms.ValidationError("Слишком короткий заголовок. Используйте от 5 до 50 символов.")
-        
-        return self.cleaned_data.get('title')
+            raise forms.ValidationError(
+                "Слишком короткий заголовок. Используйте от 5 до 50 символов."
+            )
+
+        return self.cleaned_data.get("title")
 
     class Meta:
         model = ResumeUser
 
-        phone_number = forms.CharField(widget=forms.TextInput(attrs={'type': 'tel'}))
-        fields = ["title", "description", "first_name", "last_name", "phone_number", "region", "city", "birthday", "gender", "citizenship", "excpirience_sum", "salary"]
+        phone_number = forms.CharField(widget=forms.TextInput(attrs={"type": "tel"}))
+        fields = [
+            "title",
+            "description",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "region",
+            "city",
+            "birthday",
+            "gender",
+            "citizenship",
+            "excpirience_sum",
+            "salary",
+        ]
         widgets = {
             "birthday": DateInput(attrs={"type": "date"}),
             "phone_number": DateInput(attrs={"type": "tel"}),
             "title": forms.TextInput(attrs={"type": "text"}),
             "first_name": forms.TextInput(attrs={"type": "text"}),
-            "last_name": forms.TextInput(attrs={"type": "text"},),
+            "last_name": forms.TextInput(
+                attrs={"type": "text"},
+            ),
         }
         labels = {
             "title": "Заголовок",
@@ -116,25 +143,24 @@ class ResumeForm(forms.ModelForm):
             "gender": "Пол",
             "citizenship": "Гражданство",
             "excpirience_sum": "Опыт работы",
-            "salary": "Зарплата"
+            "salary": "Зарплата",
         }
+
 
 class ResponsesForm(forms.ModelForm):
     vacancy = forms.ModelChoiceField(
-        queryset=Vacancy.objects.all(),
-        widget=forms.Select(attrs={"class": "hidden"})
+        queryset=Vacancy.objects.all(), widget=forms.Select(attrs={"class": "hidden"})
     )
     resume = forms.ModelChoiceField(
         queryset=ResumeUser.objects.all(),
-        label="Резюме", widget=forms.Select(attrs={'onClick': 'get_resumes()'})
+        label="Резюме",
+        widget=forms.Select(attrs={"onClick": "get_resumes()"}),
     )
-    created_by = forms.ModelChoiceField(User.objects.all(),
-        widget=forms.Select(attrs={"class": "hidden"})
+    created_by = forms.ModelChoiceField(
+        User.objects.all(), widget=forms.Select(attrs={"class": "hidden"})
     )
 
     class Meta:
         model = Responses
         fields = ["vacancy", "resume", "created_by"]
-        labels = {
-            "resume": "Резюме"
-        }
+        labels = {"resume": "Резюме"}

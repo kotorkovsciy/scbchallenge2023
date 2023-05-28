@@ -25,5 +25,5 @@ urlpatterns = [
     path("resume_delete/", resume_delete),
     path("get_cities/", get_cities),
     path("get_area/", get_area),
-    path("get_resumes_user/", get_resumes_user)
+    path("get_resumes_user/", get_resumes_user),
 ]

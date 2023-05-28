@@ -73,6 +73,7 @@ class Statistic(models.Model):
     candidates_count = models.IntegerField()
     stages_count = models.IntegerField()
 
+
 class Resume(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.TextField()
@@ -83,6 +84,7 @@ class Resume(models.Model):
     excpirience_sum = models.TextField()
     last_experience_link = models.TextField()
     last_update = models.TextField()
+
 
 class ResumeUser(models.Model):
     GENDERS = (
@@ -107,15 +109,21 @@ class ResumeUser(models.Model):
     created_by = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="created_resume"
     )
+
     def save(self, *args, **kwargs):
-        birthday = datetime.strptime(str(self.birthday), '%Y-%m-%d')
+        birthday = datetime.strptime(str(self.birthday), "%Y-%m-%d")
         today = date.today()
 
-        self.age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
+        self.age = (
+            today.year
+            - birthday.year
+            - ((today.month, today.day) < (birthday.month, birthday.day))
+        )
         super(ResumeUser, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
+
 
 class Responses(models.Model):
     resume = models.ForeignKey(
