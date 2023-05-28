@@ -1,3 +1,6 @@
 django
 django-environ
 pillow
+bs4
+fake_useragent
+requests

@@ -1,0 +1,371 @@
+:root{
+    --resume-text-margin: 5px;
+}
+
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    color: #333;
+}
+
+.resume {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 5px #888;
+    margin-right: 5%;
+}
+
+.resume h3 a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+}
+
+.resume p {
+    font-size: 18px;
+    margin-bottom: var(--resume-text-margin);
+    color: #666;
+}
+
+.resume p.age {
+    font-weight: bold;
+}
+
+.resume p.resume_status {
+    font-style: italic;
+}
+
+.resume p.excpirience_sum {
+    font-weight: bold;
+}
+
+.resume p.last_experience_link {
+    font-style: italic;
+}
+
+.resume p.last_update {
+    font-size: 14px;
+    color: #999;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+
+.resume p.last_update img.hh_logo {
+    width: 25px;
+    height: 25px;
+    float: right;
+}
+
+.resume p.last_update img.more {
+    width: 70px;
+    height: 25px;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.resume p.last_update img.hh_logo:hover {
+    content: url("../images/hh_logo/hh_Hover.png");
+    cursor: pointer;
+}
+
+.resume p.last_update img.hh_logo:active {
+    content: url("../images/hh_logo/hh_Click.png");
+    cursor: pointer;
+}
+
+.resume p.last_update img.more:hover {
+    content: url("../images/more/go_Hover.png");
+    cursor: pointer;
+}
+
+.resume p.last_update img.more:active {
+    content: url("../images/more/go_Click.png");
+    cursor: pointer;
+}
+
+.paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.paginator a {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.paginator a:hover {
+    background-color: #666;
+}
+
+.paginator a.active {
+    background-color: #666;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto auto;
+    grid-gap: 20px;
+    grid-template-areas:
+        "header header header"
+        "resumes resumes filters"
+        "footer footer footer";
+}
+
+.navbar {
+    grid-area: header;
+    background-color: #fff;
+    border-radius: 5px;
+    color: #333;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-areas:
+    "logo home resume vacancy profile exit login";
+    box-shadow: 0px 0px 5px #888;
+}
+
+.navbar__logo{
+    grid-area: logo;
+    margin-top: 3%;
+    margin-left: 3%;
+}
+
+.navbar__logo{
+    width: 100px;
+}
+
+.navbar a:hover{
+    color: #3f6546;
+}
+
+.navbar a{
+    text-decoration: none;
+    color: #333;
+}
+
+.navbar__resume{
+    grid-area: resume;
+    text-decoration: none;
+    color: #333;
+    padding: 15px;
+}
+
+.navbar__vacancy{
+    grid-area: vacancy;
+    text-decoration: none;
+    color: #333;
+    padding: 15px;
+}
+
+.navbar__login {
+    grid-area: login;
+    text-decoration: none;
+    color: #333;
+    padding: 15px;
+}
+
+.navbar__login a {
+    text-decoration: none;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.resumes {
+    grid-area: resumes;
+}
+
+.filters {
+    grid-area: filters;
+}
+
+.filter {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 5px #888;
+}
+
+.footer {
+    grid-area: footer;
+    text-align: center;
+}
+
+/* Дополнительные стили для вакансий и фильтров */
+.resume {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 5px #888;
+}
+
+/* Стили для фильтров */
+.filters h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.filters form {
+    margin-bottom: 20px;
+}
+
+.filters label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.filters input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.filters input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filters input[type="submit"]:hover {
+    background-color: #666;
+}
+
+
+.areas {
+    height: 200px;
+    overflow-y: auto;
+}
+
+.regions::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f2f2f2;
+}
+
+.regions::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.regions::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.areas h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.specializations {
+    height: 200px;
+    overflow-y: auto;
+}
+
+.specializations::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f2f2f2;
+}
+
+.specializations::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.specializations::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+@media screen and (max-width: 1200px) {
+    .wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+            "header header"
+            "resumes filters"
+            "footer footer";
+    }
+
+    .resume {
+        margin-bottom: 20px;
+    }
+    .resume p.last_update img.more {
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto auto;
+        grid-template-areas:
+            "header"
+            "filters"
+            "resumes"
+            "footer";
+    }
+
+    .navbar {
+        grid-template-areas:
+            "logo home"
+            "resume vacancy"
+            "profile exit"
+            "login login";
+    }
+
+    .navbar__logo{
+        margin-top: 5%;
+        margin-left: 5%;
+    }
+
+    .navbar__logo{
+        width: 100px;
+    }
+
+    .navbar__resume{
+        padding: 5px;
+        margin-left: 5px;
+    }
+
+    .navbar__vacancy{
+        padding: 5px;
+        
+    }
+
+    .navbar__login {
+        padding: 5px;
+    }
+
+    .resume {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    .resume p.last_update img.more {
+        margin-bottom: 5px;
+        float: none;
+        display: block;
+    }
+}

@@ -1,7 +1,24 @@
-<h2>Login</h2>
+{% load static %}
+<!DOCTYPE html>
+<html>
 
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
+<head>
+    <title>Авторизация</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}" />
+</head>
+
+<body>
+    <h2>Авторизация</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Войти</button>
+        <a href="{% url 'user_registration' %}" class="url_reg">Регистрация</a>
+    </form>
+</body>
+
+</html>

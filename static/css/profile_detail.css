@@ -1,0 +1,97 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    max-width: 700px;
+}
+
+.profile-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-label {
+    font-weight: bold;
+    text-align: left;
+    width: 30%;
+}
+
+.profile-value {
+    text-align: right;
+    width: 70%;
+}
+
+@media only screen and (min-width: 768px) {
+    .profile-info {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .profile-row {
+        width: 48%;
+    }
+}
+
+.profile p.last_update img.more {
+    width: 70px;
+    height: 25px;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.profile p.last_update img.more:hover {
+    content: url("../images/more/go_Hover.png");
+    cursor: pointer;
+}
+
+.profile p.last_update img.more:active {
+    content: url("../images/more/go_Click.png");
+    cursor: pointer;
+}
+
+.profile p.last_update img.more {
+        margin-bottom: 5px;
+    }
+
+.profile p.last_update img.delete {
+    width: 70px;
+    height: 25px;
+    float: right;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+
+.profile p.last_update img.delete:hover {
+    content: url("../images/del/delete_Hover.png");
+    cursor: pointer;
+}
+
+.profile p.last_update img.delete:active {
+    content: url("../images/del/delete_Click.png");
+    cursor: pointer;
+}
+
+.profile p.last_update img.delete {
+        margin-bottom: 5px;
+    }

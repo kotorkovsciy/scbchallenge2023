@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/create_resume.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2>Создать резюме</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Создать</button>
+  </form>
+{% endblock %}
+
+{% block footer %}
+<script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/create_resume.js' %}" type="text/javascript"></script>
+<script>
+  let update_city = () => {get_city();}
+</script>
+{% endblock %}

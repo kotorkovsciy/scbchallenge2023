@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="profile">
+    <h2 class="profile-title">Профиль, {{ profile.username }}</h2>
+    <div class="profile-info" id="profile-info">
+        {% for resume in resumes %}
+            <div class="profile-row">
+                <span class="profile-label">Название вакансии:</span>
+                <span class="profile-value">{{ resume.title }}</span>
+            </div>
+            <p class="last_update" id="{{ resume.id }}">
+                <a href="{% url 'resume_detail' resume.id %}" target="_blank">
+                    <img class="more" src="{% static 'images/more/go_NoActive.png' %}"/>
+                </a>
+                {% if user.id == profile.id %}
+                        <img class="delete" src="{% static 'images/del/delete.png' %}"  onclick="deleted_it({{ resume.id }});"/>
+                {% endif %}
+            <p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    <script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/resume_detail.js' %}" type="text/javascript"></script>
+    <script>
+        let deleted_it = (id) => {delete_resume(id);}
+    </script>
+{% endblock %}
