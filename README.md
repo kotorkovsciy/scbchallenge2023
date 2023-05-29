@@ -27,11 +27,11 @@
 <hr style="height:1px; color:black; background-color:gray">
 
 <p style="margin-top:50px; font-family: Merriweather; text-align: center;" id="visual">Визуальное описание функционала системы</p>
-<a href="https://drive.google.com/file/d/1f9Boz0PfWSWgU2f03RFc9vKhFEpI6Odh/view?usp=drive_link"><img src="https://drive.google.com/uc?export=view&id=1f9Boz0PfWSWgU2f03RFc9vKhFEpI6Odh"></a>
+<a href="https://drive.google.com/file/d/1f9Boz0PfWSWgU2f03RFc9vKhFEpI6Odh/view?usp=drive_link"><img src="https://drive.google.com/uc?export=view&id=1f9Boz0PfWSWgU2f03RFc9vKhFEpI6Odh" style="background-color: white"></a>
 
-<a href="https://drive.google.com/file/d/12E6a3xydc6kermYx6PETt7-4lXs1wKDM/view?usp=drive_link"><img style="margin-top:50px;" src="https://drive.google.com/uc?export=view&id=12E6a3xydc6kermYx6PETt7-4lXs1wKDM"></a>
+<a href="https://drive.google.com/file/d/12E6a3xydc6kermYx6PETt7-4lXs1wKDM/view?usp=drive_link"><img style="margin-top:50px; background-color: white" src="https://drive.google.com/uc?export=view&id=12E6a3xydc6kermYx6PETt7-4lXs1wKDM"></a>
 
-<a href="https://drive.google.com/file/d/1AdC6QslcJ1KqB3axT71SqrIeEOGCMieQ/view?usp=drive_link"><img style="margin-top:50px;" src="https://drive.google.com/uc?export=view&id=1AdC6QslcJ1KqB3axT71SqrIeEOGCMieQ"></a>
+<a href="https://drive.google.com/file/d/1AdC6QslcJ1KqB3axT71SqrIeEOGCMieQ/view?usp=drive_link"><img style="margin-top:50px; background-color: white" src="https://drive.google.com/uc?export=view&id=1AdC6QslcJ1KqB3axT71SqrIeEOGCMieQ"></a>
 
 
 <hr style="height:1px; color:black; background-color:gray">
