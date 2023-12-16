@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -185,6 +186,11 @@ def login_view(request):
         form = UserLoginForm()
 
     return render(request, "login.html", {"form": form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("login")
 
 
 def update_resumes(request):
