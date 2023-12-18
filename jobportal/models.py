@@ -4,6 +4,8 @@ from django.utils import timezone
 from datetime import date
 from datetime import datetime
 from django.db.models.functions import ExtractYear
+from django.db.models import F
+from django.db.models import Sum, Count
 
 
 class UserProfile(models.Model):
@@ -23,6 +25,7 @@ class Vacancy(models.Model):
     description = models.TextField()
     requirements = models.TextField()
     deadline = models.DateField()
+    salary = models.IntegerField()
     status = models.BooleanField(default=True)
     created_by = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="created_vacancies"
@@ -30,6 +33,12 @@ class Vacancy(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def amount_responses(self):
+        return (
+            Responses.objects.filter(vacancy=self.id, status=True)
+            .select_related("item").count()
+        )
 
 
 class Candidate(models.Model):
