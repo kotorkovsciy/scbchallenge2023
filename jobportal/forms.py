@@ -26,7 +26,7 @@ class UserRegistrationForm(UserCreationForm):
 class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
-        fields = ["title", "description", "requirements", "deadline", "status"]
+        fields = ["title", "description", "salary", "requirements", "deadline", "status"]
         widgets = {"deadline": DateInput(attrs={"type": "date"})}
 
 
