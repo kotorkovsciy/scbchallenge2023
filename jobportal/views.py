@@ -17,6 +17,9 @@ from .utils.getFilter_data import FilterData, JsonParser
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 import json
+from .serializers import VacancySummarySerializer, ResponseSerializer, ResponsesSerializer
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 def unauthenticated_user(view_func):
@@ -302,3 +305,20 @@ def get_resumes_user(request):
         return JsonResponse({"resumes": list(resumes.values())}, status=200)
     else:
         return JsonResponse({"message": "CSRF verification failed."}, status=400)
+
+class AmountResponses(APIView):
+    def get(self, request):
+        vacancy = Vacancy.objects.all()
+        return Response(VacancySummarySerializer(vacancy, many=True).data)
+
+class VacancyResponses(APIView):
+    def get(self, request):
+        responses = Responses.objects.filter(vacancy__id=request.data.get("id"))
+        serializer = ResponsesSerializer(responses, many=True)
+        return Response(serializer.data)
+    
+class VacancyResponse(APIView):
+    def get(self, request):
+        vacancy = Responses.objects.get(id=request.data.get("id"))
+        serializer = ResponseSerializer(vacancy)
+        return Response(serializer.data)

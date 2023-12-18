@@ -1,5 +1,6 @@
 from django.contrib.auth import views as auth_views
-from django.urls import path
+
+from django.urls import path, include
 
 from .views import create_vacancy, create_resume
 from .views import login_view, logout_view
@@ -8,7 +9,7 @@ from .views import resume_board
 from .views import update_resumes, resume_detail, profile_detail
 from .views import resume_delete, get_cities, get_area
 from .views import vacancy_board, vacancy_detail
-from .views import get_resumes_user
+from .views import get_resumes_user, AmountResponses, VacancyResponse, VacancyResponses
 
 urlpatterns = [
     path("user/register/", register_view, name="user_registration"),
@@ -26,4 +27,8 @@ urlpatterns = [
     path("get_cities/", get_cities),
     path("get_area/", get_area),
     path("get_resumes_user/", get_resumes_user),
+    path("api/get_amount_responses/", AmountResponses.as_view()),
+    path("api/get_response/", VacancyResponse.as_view()),
+    path("api/get_responses/", VacancyResponses.as_view()),
+    path("api/auth/", include("djoser.urls.authtoken")),
 ]
