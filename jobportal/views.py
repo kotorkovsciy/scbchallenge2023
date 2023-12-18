@@ -136,22 +136,23 @@ def resume_board(request):
         hh = parseHh(hh_filter)
         page = request.GET.get("page", 0)
         serp = hh.get_serp(page)
-        for j in range(amount):
-            resume = hh.parse_single_resume(serp[j])
-            resumes.append(
-                {
-                    "id": resume["id"],
-                    "title": resume["title"],
-                    "age": resume["age"],
-                    "resume_status": resume["resume_status"],
-                    "excpirience_sum": resume["excpirience_sum"],
-                    "last_experience_link": resume["last_experience_link"],
-                    "last_update": resume["last_update"],
-                    "title_url": resume["title_url"],
-                    "salary": resume["salary"],
-                    "from_resume": "hh",
-                }
-            )
+        if len(serp) > 0:
+            for j in range(amount):
+                resume = hh.parse_single_resume(serp[j])
+                resumes.append(
+                    {
+                        "id": resume["id"],
+                        "title": resume["title"],
+                        "age": resume["age"],
+                        "resume_status": resume["resume_status"],
+                        "excpirience_sum": resume["excpirience_sum"],
+                        "last_experience_link": resume["last_experience_link"],
+                        "last_update": resume["last_update"],
+                        "title_url": resume["title_url"],
+                        "salary": resume["salary"],
+                        "from_resume": "hh",
+                    }
+                )
 
     reg = JsonParser().get_republics_by_country_n_republics_ids(
         "113", request.GET.getlist("area", ["113"])
