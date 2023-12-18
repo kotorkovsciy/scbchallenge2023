@@ -48,7 +48,7 @@
             {% endif %}
             <div class="navbar__login">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}">Выйти</a>
+                    <a href="{% url 'logout_page' %}">Выйти</a>
                     <a href="{% url 'profile' user.id %}">| {{ user.username }}</a>
                 {% else %}
                     <a href="{% url 'login' %}">Войти</a>

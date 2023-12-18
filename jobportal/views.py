@@ -99,7 +99,7 @@ def register_view(request):
             user = form.save()
             profile = UserProfile.objects.create(user=user, role="Кандидат")
             login(request, user)
-            return redirect("login")
+            return redirect("login_page")
     else:
         form = UserRegistrationForm()
 
@@ -193,7 +193,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect("login")
+    return redirect("login_page")
 
 
 def update_resumes(request):

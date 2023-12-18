@@ -14,8 +14,8 @@ from .views import get_resumes_user, AmountResponses, VacancyResponse, VacancyRe
 urlpatterns = [
     path("user/register/", register_view, name="user_registration"),
     path("resumes/", resume_board, name="resume_board"),
-    path("login/", login_view, name="login"),
-    path("logout/", logout_view, name="logout"),
+    path("login/", login_view, name="login_page"),
+    path("logout/", logout_view, name="logout_page"),
     path("create-vacancy/", create_vacancy, name="create_vacancy"),
     path("update_resumes/", update_resumes),
     path("create-resume/", create_resume, name="create_resume"),
