@@ -314,12 +314,12 @@ class AmountResponses(APIView):
 
 class VacancyResponses(APIView):
     def get(self, request):
-        responses = Responses.objects.filter(vacancy__id=request.data.get("id"))
+        responses = Responses.objects.filter(vacancy__id=request.GET.get("id"))
         serializer = ResponsesSerializer(responses, many=True)
         return Response(serializer.data)
     
 class VacancyResponse(APIView):
     def get(self, request):
-        vacancy = Responses.objects.get(id=request.data.get("id"))
+        vacancy = Responses.objects.get(id=request.GET.get("id"))
         serializer = ResponseSerializer(vacancy)
         return Response(serializer.data)
