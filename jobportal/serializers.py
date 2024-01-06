@@ -15,6 +15,7 @@ class VacancySummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Vacancy
         fields = (
+            "id",
             "title",
             "amount_responses",
         )
